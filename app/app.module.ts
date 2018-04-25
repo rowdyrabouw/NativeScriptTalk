@@ -3,6 +3,8 @@ import { NativeScriptModule } from "nativescript-angular/nativescript.module";
 import { AppRoutingModule } from "./app.routing";
 import { AppComponent } from "./app.component";
 
+import { TNSFontIconModule } from "nativescript-ngx-fonticon";
+
 // for ngx-translate
 import { NativeScriptHttpClientModule } from "nativescript-angular/http-client";
 import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
@@ -27,11 +29,13 @@ export function createTranslateLoader(http: HttpClient) {
         deps: [HttpClient],
         useFactory: createTranslateLoader
       }
+    }),
+    TNSFontIconModule.forRoot({
+      fa: "./assets/css/font-awesome.css"
     })
   ],
   declarations: [AppComponent],
   providers: [LanguageService],
   schemas: [NO_ERRORS_SCHEMA]
 })
-
 export class AppModule {}

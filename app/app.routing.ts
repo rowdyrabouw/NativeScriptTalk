@@ -3,12 +3,13 @@ import { NativeScriptRouterModule } from "nativescript-angular/router";
 import { Routes } from "@angular/router";
 
 const routes: Routes = [
-    { path: "", redirectTo: "/home", pathMatch: "full" },
-    { path: "home", loadChildren: "./components/home/home.module#HomeModule" }
+  { path: "", redirectTo: "/slider", pathMatch: "full" },
+  { path: "home", loadChildren: "./components/home/home.module#HomeModule" },
+  { path: "slider", loadChildren: "./components/slider/slider.module#SliderModule" }
 ];
 
 @NgModule({
-    imports: [NativeScriptRouterModule.forRoot(routes)],
-    exports: [NativeScriptRouterModule]
+  imports: [NativeScriptRouterModule.forRoot(routes)],
+  exports: [NativeScriptRouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

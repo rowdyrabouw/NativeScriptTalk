@@ -1,0 +1,9 @@
+.full {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.captain {
+  background-image: url("~/assets/images/captain-america.jpg");
+}
