@@ -1,0 +1,10 @@
+<ActionBar [title]="'EXAMPLE.TITLE' | translate"></ActionBar>
+
+<ScrollView>
+    <StackLayout>
+        <Label [text]="'EXAMPLE.TITLE' | translate"></Label>
+        <TextView editable="false" [text]="'EXAMPLE.TEXT' | translate"></TextView>
+        <Button text="Nederlands" (tap)="changeLanguage('nl')"></Button>
+        <Button text="English" (tap)="changeLanguage('en')"></Button>
+    </StackLayout>
+</ScrollView>
