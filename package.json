@@ -4,10 +4,26 @@
   "readme": "NativeScript Application",
   "repository": "<fill-your-repository-here>",
   "nativescript": {
-    "id": "org.nativescript.NativeScriptTalk",
+    "id": "nl.doubler.nativescripttalk",
     "tns-ios": {
       "version": "3.4.1"
     }
+  },
+  "scripts": {
+    "ios.alert.version": "echo '\\033[0;101m Did you need to change the version number? (Info.plist -> CFBundleShortVersionString) \\x1B[0m'",
+    "ios.alert.build": "echo '\\033[0;101m Did you change the build number? (Info.plist -> CFBundleVersion) \\x1B[0m'",
+    "ios.alert.xcode": "echo '\\033[0;101m Continue in Xcode via platforms/ios/NativeScriptTalk.xcworkspace \\x1B[0m'",
+    "ios.clean": "rm -rf platforms/ios",
+    "ios.platform.add": "tns platform add ios",
+    "ios.prepare": "tns prepare ios --release",
+    "ios.build": "tns build ios --bundle --env.aot --env.uglify --release --forDevice",
+    "ios.release": "clear && npm run -s ios.alert.version && npm run -s ios.alert.build && npm run -s ios.clean && npm run ios.build && npm run -s ios.alert.xcode",
+    "android.alert.version": "echo '\\033[0;101m Did you need to change the version number? (AndroidManifest.xml -> android:versionName) \\x1B[0m'",
+    "android.alert.build": "echo '\\033[0;101m Did you change the build number? (Android: AndroidManifest.xml -> android:versionCode) \\x1B[0m'",
+    "android.clean": "rm -rf platforms/android",
+    "android.platform.add": "tns platform add android",
+    "android.build": "tns build android --release --key-store-path ../doubler.jks --key-store-password __PASSWORD__ --key-store-alias doubler --key-store-alias-password __PASSWORD__",
+    "android.release": "clear && npm run -s android.alert.version && npm run -s android.alert.build && npm run -s android.clean && npm run android.platform.add && npm run android.build"
   },
   "dependencies": {
     "@angular/animations": "~5.2.0",
