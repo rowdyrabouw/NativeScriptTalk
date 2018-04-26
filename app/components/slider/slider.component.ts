@@ -15,45 +15,24 @@ import { TNSPlayer } from "nativescript-audio";
 export class SliderComponent implements OnInit {
   @ViewChild("background") _background: ElementRef;
   viewStack: StackLayout;
-  private testPlayer: TNSPlayer;
   private player: TNSPlayer;
 
   constructor(private page: Page, private routerExtensions: RouterExtensions) {}
 
-  showSlider() {
-    this.routerExtensions.navigate(["/slider"]);
-  }
-
-  showSpeechRecognition() {
-    this.routerExtensions.navigate(["/speechrecognition"]);
-  }
-
-  showGuessThatSong() {
-    this.routerExtensions.navigate(["/guess"]);
+  navigateHome() {
+    this.player.seekTo(0);
+    this.player.pause();
+    this.routerExtensions.navigate(["/"]);
   }
 
   ngOnInit() {
-    this.page.actionBarHidden = false;
+    this.page.actionBarHidden = true;
     this.viewStack = this._background.nativeElement;
-    this.testPlayer = new TNSPlayer();
-    this.testPlayer.initFromFile({
-      audioFile: "~/assets/audio/testing.mp3",
-      loop: false
-    });
     this.player = new TNSPlayer();
     this.player.initFromFile({
       audioFile: "~/assets/audio/captain.mp3",
       loop: false
     });
-  }
-
-  testAudio() {
-    if (this.testPlayer.isAudioPlaying()) {
-      this.testPlayer.seekTo(0);
-      this.testPlayer.pause();
-    } else {
-      this.testPlayer.play();
-    }
   }
 
   onSliderValueChange(args) {

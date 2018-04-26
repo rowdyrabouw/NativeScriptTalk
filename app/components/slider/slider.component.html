@@ -1,16 +1,8 @@
 <ActionBar class="action-bar">
     <NavigationButton visibility="collapsed"></NavigationButton>
-    <GridLayout columns="*">
-        <StackLayout orientation="horizontal" col="0">
-            <Label [text]="'fa-bullhorn' | fonticon" (tap)="testAudio()" class="fa"></Label>
-            <Label [text]="'fa-sliders' | fonticon" (tap)="showSlider()" class="fa"></Label>
-            <Label [text]="'fa-music' | fonticon" (tap)="showGuessThatSong()" class="fa"></Label>
-            <Label [text]="'fa-microphone' | fonticon" (tap)="showSpeechRecognition()" class="fa"></Label>
-        </StackLayout>
-    </GridLayout>
 </ActionBar>
 
-<StackLayout>
+<StackLayout (tap)="navigateHome()">
     <AbsoluteLayout>
         <StackLayout #background height="100%" width="100%" class="full captain" top="0" left="0" style="opacity: 0">
         </StackLayout>

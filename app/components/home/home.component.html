@@ -1,10 +1,19 @@
-<ActionBar [title]="'EXAMPLE.TITLE' | translate"></ActionBar>
+<ActionBar [title]="'EXAMPLE.TITLE' | translate">
+    <NavigationButton visibility="collapsed"></NavigationButton>
+</ActionBar>
 
 <ScrollView>
     <StackLayout>
         <Label [text]="'EXAMPLE.TITLE' | translate"></Label>
         <TextView editable="false" [text]="'EXAMPLE.TEXT' | translate"></TextView>
+
+        <Label [text]="'fa-bullhorn' | fonticon" (tap)="testAudio()" class="fa"></Label>
+        <Label [text]="'fa-sliders' | fonticon" (tap)="navigateSlider()" class="fa"></Label>
+        <Label [text]="'fa-music' | fonticon" (tap)="navigateGuessThatSong()" class="fa"></Label>
+        <Label [text]="'fa-microphone' | fonticon" (tap)="navigateSpeechRecognition()" class="fa"></Label>
+
         <Button text="Nederlands" (tap)="changeLanguage('nl')"></Button>
         <Button text="English" (tap)="changeLanguage('en')"></Button>
+        <Button text="Slider" (tap)="navigateSlider()"></Button>
     </StackLayout>
 </ScrollView>
