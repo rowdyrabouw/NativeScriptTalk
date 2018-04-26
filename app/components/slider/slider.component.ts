@@ -9,7 +9,8 @@ import { TNSPlayer } from "nativescript-audio";
 @Component({
   moduleId: module.id,
   selector: "nda-slider",
-  templateUrl: "slider.component.html"
+  templateUrl: "slider.component.html",
+  styleUrls: ["slider.component.css"]
 })
 export class SliderComponent implements OnInit {
   @ViewChild("background") _background: ElementRef;
