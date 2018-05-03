@@ -2,7 +2,7 @@
     <NavigationButton visibility="collapsed"></NavigationButton>
     <StackLayout>
         <GridLayout columns="35 * 45">
-            <Label [text]="'fa-bars' | fonticon" (tap)="toggleDrawer()" class="fa center" col="0"></Label>
+            <!-- <Label [text]="'fa-bars' | fonticon" (tap)="toggleDrawer()" class="fa center" col="0"></Label> -->
             <Label [text]="'HOME.TITLE' | translate" class="actionbar-title" col="1"></Label>
         </GridLayout>
     </StackLayout>
@@ -12,8 +12,18 @@
 </StackLayout> -->
 
 <ScrollView>
-    <DockLayout stretchLastChild="false" class="full" [ngClass]="setClasses()" height="100%" width="100%">
+    <DockLayout stretchLastChild="false" class="full" height="100%" width="100%">
         <VideoPlayer dock="top" #videoplayer src="~/assets/video/storm.mp4" autoplay="false" height="100%" controls="true" [visibility]="isVideoVisible ? 'visible' : 'collapsed'"></VideoPlayer>
+
+        <StackLayout dock="top">
+            <Button text="Gouda" (tap)="getWeather('Gouda')"></Button>
+            <Button text="Iran" (tap)="getWeather('Iran')"></Button>
+            <Button text="Lupin" (tap)="getWeather('Lupin')"></Button>
+            <Button text="Vilnius" (tap)="getWeather('vilnius')"></Button>
+            <Button text="Connect lightbulb" (tap)="doConnectLightbulb()"></Button>
+            <Button text="Infinity Stones" (tap)="doInfinityStones()"></Button>
+            <Button text="Disconnect lightbulb" (tap)="doDisconnectLightbulb()"></Button>
+        </StackLayout>
 
         <StackLayout dock="bottom" orientation="horizontal" height="100" style="background-color: yellow">
 

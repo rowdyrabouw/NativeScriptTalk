@@ -1,9 +1,12 @@
 import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
 import { NativeScriptModule } from "nativescript-angular/nativescript.module";
+import { registerElement } from "nativescript-angular";
 import { AppRoutingModule } from "./app.routing";
 import { AppComponent } from "./app.component";
 
 import { TNSFontIconModule } from "nativescript-ngx-fonticon";
+
+import { WeatherService } from "./services/weather.service";
 
 // for ngx-translate
 import { NativeScriptHttpClientModule } from "nativescript-angular/http-client";
@@ -16,6 +19,8 @@ import { LanguageService } from "./services/language.service";
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, "/i18n/", ".json");
 }
+
+registerElement("Gradient", () => require("nativescript-gradient").Gradient);
 
 @NgModule({
   bootstrap: [AppComponent],
@@ -35,7 +40,7 @@ export function createTranslateLoader(http: HttpClient) {
     })
   ],
   declarations: [AppComponent],
-  providers: [LanguageService],
+  providers: [LanguageService, WeatherService],
   schemas: [NO_ERRORS_SCHEMA]
 })
 export class AppModule {}

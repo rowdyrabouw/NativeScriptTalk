@@ -4,21 +4,21 @@ import { AddressOptions, Directions } from "nativescript-directions";
 
 @Component({
   moduleId: module.id,
-  selector: "Directions",
+  selector: "app-directions",
   templateUrl: "directions.component.html"
 })
 export class DirectionsComponent implements OnInit {
-  private _directions: Directions;
+  private directions: Directions;
   elevation = 2;
 
   constructor() {
-    this._directions = new Directions();
+    this.directions = new Directions();
   }
 
   ngOnInit() {}
 
   showDirections() {
-    this._directions
+    this.directions
       .navigate({
         from: {
           address: "Radisson Blu Waterfront Hotel, Stockholm"

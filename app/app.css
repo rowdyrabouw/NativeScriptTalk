@@ -13,8 +13,13 @@ refer to http://docs.nativescript.org/ui/theme.
 
 @import url("~/assets/css/font-awesome.css");
 
+.btn-primary {
+  background-color: #ffffff;
+  color: #000000;
+  border-radius: 10;
+}
+
 .fa {
   font-family: FontAwesome, fontawesome-webfont;
   font-size: 30;
-  margin-right: 20;
 }

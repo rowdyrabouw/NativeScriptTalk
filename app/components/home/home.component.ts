@@ -8,7 +8,8 @@ import { LanguageService } from "../../services/language.service";
 @Component({
   selector: "app-home",
   moduleId: module.id,
-  templateUrl: "./home.component.html"
+  templateUrl: "./home.component.html",
+  styleUrls: ["home.component.css"]
 })
 export class HomeComponent implements OnInit {
   private player: TNSPlayer;
@@ -35,15 +36,15 @@ export class HomeComponent implements OnInit {
       this.player.play();
     }
   }
-  navigateSlider() {
+  navigateToSlider() {
     this.routerExtensions.navigate(["/slider"]);
   }
 
-  navigateSpeechRecognition() {
+  navigateToSpeechRecognition() {
     this.routerExtensions.navigate(["/speechrecognition"]);
   }
 
-  navigateGuessThatSong() {
+  navigateToGuessThatSong() {
     this.routerExtensions.navigate(["/guess"]);
   }
 }

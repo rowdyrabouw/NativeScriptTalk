@@ -1,7 +1,6 @@
 {
-    "EXAMPLE": {
-    "TITLE": "Hello world!",
-    "TEXT": "This is a sentence in English.",
-    "BACK": "Back"
-    }
+  "HOME": {
+    "TITLE": "Hello DevDays Vilnius!",
+    "TEXT": "It's great to be here and introduce NativeScript to you."
+  }
 }

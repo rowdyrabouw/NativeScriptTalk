@@ -9,33 +9,27 @@ import { TranslateService } from "@ngx-translate/core";
 
 @Injectable()
 export class LanguageService {
-  private _languages: Array<string> = ["nl"];
-  private _settings: any = {
-    taal: "nl"
-  };
+  private languages: Array<string> = ["en", "lt"];
+  private language: string = "en";
 
   translateService: TranslateService;
 
-  constructor(private _translate: TranslateService) {
+  constructor(private translate: TranslateService) {
     let deviceLanguage: string = Platform.device.language;
-    let languageIndex = this._languages.indexOf(deviceLanguage);
+    let languageIndex = this.languages.indexOf(deviceLanguage);
     if (languageIndex >= 0) {
-      this._settings.taal = deviceLanguage;
+      this.language = deviceLanguage;
     }
   }
 
   initLanguage() {
-    this.translateService = this._translate;
-    this._translate.addLangs(this._languages);
-    this._translate.use(this._settings.taal);
+    this.translateService = this.translate;
+    this.translate.addLangs(this.languages);
+    this.translate.use(this.language);
   }
 
   setLanguage(aTaal: string) {
-    this._settings.taal = aTaal;
-    this._translate.use(aTaal);
-  }
-
-  getLanguage(): string {
-    return this._settings.taal;
+    this.language = aTaal;
+    this.translate.use(aTaal);
   }
 }
