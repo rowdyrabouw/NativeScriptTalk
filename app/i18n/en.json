@@ -2,5 +2,8 @@
   "HOME": {
     "TITLE": "Hello DevDays Vilnius!",
     "TEXT": "It's great to be here and introduce NativeScript to you."
+  },
+  "SPEECH": {
+    "TITLE": "Speech recognition!"
   }
 }

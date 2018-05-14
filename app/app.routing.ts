@@ -3,7 +3,7 @@ import { NativeScriptRouterModule } from "nativescript-angular/router";
 import { Routes } from "@angular/router";
 
 const routes: Routes = [
-  { path: "", redirectTo: "/home", pathMatch: "full" },
+  { path: "", redirectTo: "/speechrecognition", pathMatch: "full" },
   { path: "home", loadChildren: "./components/home/home.module#HomeModule" },
   { path: "slider", loadChildren: "./components/slider/slider.module#SliderModule" },
   { path: "speechrecognition", loadChildren: "./components/speechrecognition/speechrecognition.module#SpeechRecognitionModule" }

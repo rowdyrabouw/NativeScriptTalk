@@ -9,7 +9,7 @@
     "app/**/*.js": { "when": "$(basename).ts" },
     "app/**/*.js.map": true
   },
-  // "editor.codeActionsOnSave": { "source.organizeImports": true },
+  "editor.codeActionsOnSave": { "source.organizeImports": true },
   "files.autoSave": "onFocusChange",
   "prettier.printWidth": 150,
   "editor.formatOnSave": true,

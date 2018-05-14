@@ -1,4 +1,5 @@
 import { Component, OnInit, NgZone, ViewChild, ElementRef } from "@angular/core";
+import { RouterExtensions } from "nativescript-angular/router";
 import * as dialogs from "ui/dialogs";
 
 import { SpeechRecognition, SpeechRecognitionTranscription } from "nativescript-speech-recognition";
@@ -15,28 +16,31 @@ registerElement("VideoPlayer", () => require("nativescript-videoplayer").Video);
 // https://docs.nativescript.org/angular/plugins/angular-third-party.html#simple-elements
 
 import { WeatherService } from "../../services/weather.service";
+import { isIOS } from "tns-core-modules/ui/frame/frame";
 
 @Component({
   moduleId: module.id,
   selector: "Speech",
-  templateUrl: "speechrecognition.component.html"
+  templateUrl: "speechrecognition.component.html",
+  styleUrls: ["speechrecognition.component.css"]
 })
 export class SpeechRecognitionComponent implements OnInit {
   // lightbulb
-  private uuid = "2B:C8:4B:16:AC:E6";
+  // private uuid = "2B:C8:4B:16:AC:E6";
+  private uuid = "CA9F644C-1750-4572-8833-1D137A9B9A05";
   private service = "ff0f";
   private characteristic = "fffc";
-  private weather;
 
   private text2speech: TNSTextToSpeech;
   private speechRecognition: SpeechRecognition;
   private directions: Directions;
+  private speakRate: number;
   recognizedText: string;
   image: string;
   @ViewChild("videoplayer") VideoPlayer: ElementRef;
   isVideoVisible: boolean = false;
 
-  constructor(private weatherService: WeatherService, private zone: NgZone) {}
+  constructor(private routerExtensions: RouterExtensions, private weatherService: WeatherService, private zone: NgZone) {}
 
   ngOnInit() {
     this.text2speech = new TNSTextToSpeech();
@@ -44,6 +48,11 @@ export class SpeechRecognitionComponent implements OnInit {
     this.directions = new Directions();
     this.checkAvailability();
     camera.requestPermissions();
+    this.speakRate = isIOS ? 0.5 : 1;
+  }
+
+  navigateToHome() {
+    this.routerExtensions.navigate(["/"]);
   }
 
   private checkAvailability(): void {
@@ -122,7 +131,7 @@ export class SpeechRecognitionComponent implements OnInit {
   private speak(aText: string, aAction?: string) {
     let speakOptions: SpeakOptions = {
       text: aText,
-      speakRate: 0.8,
+      speakRate: this.speakRate,
       pitch: 1.2,
       locale: "en-US",
       finishedCallback: () => {
@@ -189,22 +198,44 @@ export class SpeechRecognitionComponent implements OnInit {
   }
 
   private connectLightbulb() {
-    bluetooth.connect({
-      UUID: this.uuid,
-      onConnected: peripheral => {
-        console.log("Periperhal connected with UUID: " + peripheral.UUID);
-
-        // the peripheral object now has a list of available services:
-        peripheral.services.forEach(function(service) {
-          // console.log("service found: " + JSON.stringify(service));
-        });
-
-        this.clearLightbulb();
-      },
-      onDisconnected: function(peripheral) {
-        console.log("Periperhal disconnected with UUID: " + peripheral.UUID);
-      }
+    bluetooth.isBluetoothEnabled().then(function(enabled) {
+      console.log("Enabled? " + enabled);
     });
+
+    bluetooth
+      .startScanning({
+        serviceUUIDs: [],
+        seconds: 4,
+        skipPermissionCheck: true,
+        onDiscovered: peripheral => {
+          console.log("Periperhal found with UUID: " + peripheral.UUID);
+          bluetooth.connect({
+            // UUID: this.uuid,
+            UUID: peripheral.UUID,
+            onConnected: peripheral => {
+              console.log("Periperhal connected with name: " + peripheral.name);
+              console.log("Periperhal connected with UUID: " + peripheral.UUID);
+              // the peripheral object now has a list of available services:
+              peripheral.services.forEach(function(service) {
+                // console.log("service found: " + JSON.stringify(service));
+              });
+
+              this.clearLightbulb();
+            },
+            onDisconnected: peripheral => {
+              console.log("Periperhal disconnected with UUID: " + peripheral.UUID);
+            }
+          });
+        }
+      })
+      .then(
+        () => {
+          console.log("scanning complete");
+        },
+        function(err) {
+          console.log("error while scanning: " + err);
+        }
+      );
   }
 
   private clearLightbulb() {
@@ -295,18 +326,17 @@ export class SpeechRecognitionComponent implements OnInit {
 
   getWeather(aSearch: string) {
     this.weatherService.getWeather(aSearch.toLowerCase()).then(res => {
-      this.weather = res;
-      console.log(JSON.stringify(this.weather));
-      console.log("city", this.weather.city);
-      let tempCelcius = Math.round((this.weather.currently.temperature - 32) * 5 / 9);
-      let apparentTempCelcius = Math.round((this.weather.currently.apparentTemperature - 32) * 5 / 9);
-      let text = `The current weather in ${this.weather.city} (${this.weather.country}) 
-                  is ${this.weather.currently.summary}, 
-                  ${tempCelcius} degrees Celcius. `;
-      if (apparentTempCelcius !== tempCelcius) {
-        text += `But it feels like ${apparentTempCelcius} degrees Celcius. `;
+      let weather: any = res;
+      console.log(JSON.stringify(weather));
+      let colors = weather.color.split(",");
+      this.setColor(colors[0], colors[1], colors[2]);
+      let text = `The current weather in ${weather.city} (${weather.country}) 
+                  is ${weather.summary}, 
+                  ${weather.temperature} degrees Celcius. `;
+      if (weather.apparentTemperature !== weather.temperature) {
+        text += `But it feels like ${weather.apparentTemperature} degrees Celcius. `;
       }
-      text += `And it will be ${this.weather.hourly.summary}`;
+      text += `The forcast is ${weather.forcast}`;
       this.speak(text);
     });
   }

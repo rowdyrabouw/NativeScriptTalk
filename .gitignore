@@ -1,4 +1,5 @@
 .DS_Store
+_docs
 *.log
 **/*.js
 *.js.map

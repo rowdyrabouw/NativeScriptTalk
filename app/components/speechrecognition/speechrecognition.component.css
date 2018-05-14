@@ -1,0 +1,31 @@
+.action-bar {
+    background-color: rgb(98, 152, 238);
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    font-size: 24;
+}
+
+.gradient {
+    padding: 10 25 25 25;
+}
+
+.transparent-area {
+    background-color: rgba(255, 255, 255, 190);
+    border-radius: 20;
+    padding: 20;
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+}
+
+.transparent-area label {
+    font-size: 20;
+    font-weight: bold;
+}
+
+.text {
+    padding: 10 20 0 20;
+}
+
+.buttons {
+    padding-top: 20;
+}
