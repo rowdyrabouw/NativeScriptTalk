@@ -1,5 +1,5 @@
 .action-bar {
-    background-color: rgb(98, 152, 238);
+    background-color: #F6093C;
     color: rgb(255, 255, 255);
     font-weight: bold;
     font-size: 24;
@@ -18,7 +18,7 @@
 }
 
 .transparent-area label {
-    font-size: 20;
+    font-size: 30;
     font-weight: bold;
 }
 
@@ -26,6 +26,8 @@
     padding: 10 20 0 20;
 }
 
-.buttons {
-    padding-top: 20;
+.buttons .fa {
+    font-size: 50;
+    width: 60;
+    text-align: center;
 }
