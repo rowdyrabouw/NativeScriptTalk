@@ -12,16 +12,13 @@
                 <Label [text]="'HOME.TEXT' | translate" textWrap="true"></Label>
             </StackLayout>
 
-            <!-- <Label [text]="'fa-sliders' | fonticon" (tap)="navigateSlider()" class="fa"></Label> -->
-            <!-- <Label [text]="'fa-microphone' | fonticon" (tap)="navigateGuessThatSong()" class="fa"></Label> -->
-            <!-- <Label [text]="'fa-microphone' | fonticon" (tap)="navigateSpeechRecognition()" class="fa"></Label> -->
-
             <StackLayout class="buttons">
+                <Button class="btn btn-primary" text="Slider" (tap)="navigateToSlider()"></Button>
+
                 <Button class="btn btn-primary" text="English" (tap)="changeLanguage('en')"></Button>
                 <Button class="btn btn-primary" text="Lithuanian" (tap)="changeLanguage('lt')"></Button>
-                <Button class="btn btn-primary" text="Slider" (tap)="navigateToSlider()"></Button>
-                <Button class="btn btn-primary" text="Speech Recognition" (tap)="navigateToSpeechRecognition()"></Button>
 
+                <Button class="btn btn-primary" text="Speech Recognition" (tap)="navigateToSpeechRecognition()"></Button>
             </StackLayout>
         </StackLayout>
     </Gradient>
