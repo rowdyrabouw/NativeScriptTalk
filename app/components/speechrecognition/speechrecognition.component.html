@@ -1,54 +1,32 @@
 <ActionBar class="action-bar" flat="true">
     <NavigationButton visibility="collapsed"></NavigationButton>
     <StackLayout horizontalAlignment="center">
-        <Label [text]="'SPEECH.TITLE' | translate" (tap)="navigateToHome()"></Label>
+        <Label [text]="'SPEECH.TITLE' | translate"></Label>
     </StackLayout>
 </ActionBar>
 
 <StackLayout class="main-content">
-    <Gradient height="100%" direction="to bottom" colors="#6298ee, #5776b8" class="gradient">
-        <StackLayout class="transparent-area" height="100%">
+    <Gradient height="100%" direction="to bottom" colors="#F6093C, #BB0C32" class="gradient">
+        <DockLayout class="transparent-area" height="100%" stretchLastChild="false">
+            <Label [text]="recognizedText" textWrap="true" dock="top" [visibility]="isRecording ? 'visible' : 'collapsed'"></Label>
+            <Label [text]="spokenText" textWrap="true" dock="top" [visibility]="!isRecording ? 'visible' : 'collapsed'"></Label>
+            <!-- <Image #selfie></Image> -->
+            <FlexboxLayout class="buttons " justifyContent="space-between " dock="bottom " height="60 ">
+                <Label [text]=" 'fa-cloud' | fonticon " (tap)="showWeatherActionSheet() " class="fa "></Label>
+                <Label [text]=" 'fa-microphone' | fonticon " (tap)="startListening() " class="fa " [visibility]="!isRecording
+                ? 'visible' : 'collapsed' "></Label>
+                <Label [text]=" 'fa-microphone-slash' | fonticon " (tap)="stopListening() " class="fa " [visibility]="isRecording
+                ? 'visible' : 'collapsed' "></Label>
+                <Label [text]=" 'fa-bluetooth-b' | fonticon " (tap)="showBluetoothActionSheet() " class="fa "></Label>
+            </FlexboxLayout>
+        </DockLayout>
 
-            <VideoPlayer #videoplayer src="~/assets/video/storm.mp4" autoplay="false" height="100%" controls="true" [visibility]="isVideoVisible ? 'visible' : 'collapsed'"></VideoPlayer>
+        <!-- <StackLayout class="transparent-area " height="100% ">
 
-            <Button class="btn btn-primary" text="Gouda" (tap)="getWeather('Gouda')"></Button>
-            <Button class="btn btn-primary" text="Iran" (tap)="getWeather('Iran')"></Button>
-            <Button class="btn btn-primary" text="Lupin" (tap)="getWeather('Lupin')"></Button>
-            <Button class="btn btn-primary" text="Vilnius" (tap)="getWeather('vilnius')"></Button>
-            <Button class="btn btn-primary" text="Connect lightbulb" (tap)="doConnectLightbulb()"></Button>
-            <Button class="btn btn-primary" text="Infinity Stones" (tap)="doInfinityStones()"></Button>
-            <Button class="btn btn-primary" text="Disconnect lightbulb" (tap)="doDisconnectLightbulb()"></Button>
-            <Button class="btn btn-primary" text="Start" (tap)="startListening() "></Button>
-            <Button class="btn btn-primary" text="Stop" (tap)="stopListening() "></Button>
+            <VideoPlayer #videoplayer src="~/assets/video/storm.mp4 " autoplay="false " height="100% " controls="true
+                " [visibility]="isVideoVisible ? 'visible' : 'collapsed' "></VideoPlayer>
 
-        </StackLayout>
+
+        </StackLayout> -->
     </Gradient>
 </StackLayout>
-
-
-<!-- 
-    <ScrollView>
-    <DockLayout stretchLastChild="false" class="full" height="100%" width="100%">
-        <VideoPlayer dock="top" #videoplayer src="~/assets/video/storm.mp4" autoplay="false" height="100%" controls="true" [visibility]="isVideoVisible ? 'visible' : 'collapsed'"></VideoPlayer>
-
-        <StackLayout dock="top">
-            <Button text="Gouda" (tap)="getWeather('Gouda')"></Button>
-            <Button text="Iran" (tap)="getWeather('Iran')"></Button>
-            <Button text="Lupin" (tap)="getWeather('Lupin')"></Button>
-            <Button text="Vilnius" (tap)="getWeather('vilnius')"></Button>
-            <Button text="Connect lightbulb" (tap)="doConnectLightbulb()"></Button>
-            <Button text="Infinity Stones" (tap)="doInfinityStones()"></Button>
-            <Button text="Disconnect lightbulb" (tap)="doDisconnectLightbulb()"></Button>
-        </StackLayout>
-
-        <StackLayout dock="bottom" orientation="horizontal" height="100" style="background-color: yellow">
-
-            <Button class="btn" text="Start" (tap)="startListening() "></Button>
-            <Button class="btn" text="Stop" (tap)="stopListening() "></Button>
-            <Button class="btn " text="Speak CatWoman " (tap)="speakCatwoman() "></Button>
-<Button class="btn " text="Speak Storm " (tap)="speakStorm() "></Button>
-
-        </StackLayout>
-    </DockLayout>
-</ScrollView> 
--->
