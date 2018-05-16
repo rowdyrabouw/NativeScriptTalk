@@ -25,7 +25,6 @@ import { isIOS } from "tns-core-modules/ui/frame/frame";
 })
 export class SpeechRecognitionComponent implements OnInit {
   // lightbulb
-  // private uuid = "2B:C8:4B:16:AC:E6";
   private uuid = "CA9F644C-1750-4572-8833-1D137A9B9A05";
   private service = "ff0f";
   private characteristic = "fffc";
@@ -36,11 +35,12 @@ export class SpeechRecognitionComponent implements OnInit {
   private speakRate: number;
   recognizedText: string;
   spokenText: string;
-  // image: string;
+  image: string;
   @ViewChild("videoplayer") VideoPlayer: ElementRef;
-  // @ViewChild("selfie") Selfie: ElementRef;
-  isVideoVisible: boolean = false;
+  @ViewChild("selfie") Selfie: ElementRef;
+  isVideoVisible: boolean = true;
   isRecording: boolean = false;
+  showImage: boolean = false;
 
   constructor(private weatherService: WeatherService, private zone: NgZone) {}
 
@@ -71,16 +71,13 @@ export class SpeechRecognitionComponent implements OnInit {
       .action({
         message: "Bluetooth",
         cancelButtonText: "Cancel",
-        actions: ["Connect", "Infinity Stones", "Disconnect"]
+        actions: ["Connect", "Disconnect"]
       })
       .then(result => {
         console.log("Dialog result: " + result);
         switch (result) {
           case "Connect":
             this.doConnectLightbulb();
-            break;
-          case "Infinity Stones":
-            this.doInfinityStones();
             break;
           case "Disconnect":
             this.doDisconnectLightbulb();
@@ -105,6 +102,7 @@ export class SpeechRecognitionComponent implements OnInit {
     this.recognizedText = "";
     this.spokenText = "";
     this.isRecording = true;
+    this.showImage = false;
     this.speechRecognition
       .startListening({
         // optional, uses the device locale by default
@@ -145,24 +143,41 @@ export class SpeechRecognitionComponent implements OnInit {
     let text = this.recognizedText;
     let speak: string;
     if (text.indexOf("introduce") > -1 || text.indexOf("yourself") > -1) {
-      speak = "Sveiki visi. Aš esu Diana. Puiku būti čia Vilniuje. Leiskite mums tęsti anglų kalbą, taigi Rowdy taip pat gali tai suvokti.";
+      speak = "Sveiki visi. Aš esu Diana. Puiku būti čia Vilnius. Leiskite mums tęsti anglų kalbą, taigi Rowdy taip pat gali tai suvokti.";
       this.speak(speak);
-    } else if (text.indexOf("character") > -1 || text.indexOf("marvel") > -1) {
-      speak =
-        "My name is Ororo Munroe. My mother was a tribal princess of Kenya and my father ws an American photojournalist. I better known as Storm, an X-men. I can control the weather. How cool is that?";
-      this.speak(speak);
-    } else if (text.indexOf("show") > -1 || text.indexOf("cool") > -1) {
-      speak = "Let's watch a little video of my character together! Please make sure to rotate your device to landscape.";
-      this.speak(speak, "movie");
     } else if (text.indexOf("share") > -1 || text.indexOf("selfie") > -1) {
       speak = "That's a nice idea. Let's take a picture together and put it on Twitter!";
       this.speak(speak, "selfie");
-    } else if (text.indexOf("redecorate") > -1 || text.indexOf("house") > -1) {
-      speak = "I've found a lovely small furniture store nearby, called eekayAh. Would you like some directions?";
+    } else if (text.indexOf("light") > -1) {
+      speak = "Oh Rowdy. You were born to light up the world!";
+      this.speak(speak, "lightbulb");
+    } else if (text.indexOf("weather") > -1 && text.indexOf("here") > -1) {
+      this.getWeather("vilnius");
+    } else if (text.indexOf("weather") > -1 && text.indexOf("hometown") > -1) {
+      this.getWeather("gouda");
+    } else if (text.indexOf("weather") > -1 && text.indexOf("hot") > -1) {
+      this.getWeather("iran");
+    } else if (text.indexOf("weather") > -1 && text.indexOf("cold") > -1) {
+      this.getWeather("lupin");
+    } else if (text.indexOf("song") > -1 || text.indexOf("lyric") > -1) {
+      speak =
+        "Don't call it a comeback. I've been here for years. I'm rocking my peers. Puting suckers in fear. Making the tears rain down like a monsoon. Listen to the bass go boom!";
       this.speak(speak);
-    } else if (text.indexOf("yes") > -1 || text.indexOf("please") > -1) {
-      speak = "It's nearby, see for yourself.";
-      this.speak(speak, "directions");
+    } else if (text.indexOf("answer") > -1) {
+      speak = "It's LL Cool J with Mama Said Knock You Out from the Deadpool 2 movie.";
+      this.speak(speak, "movie");
+      // } else if (text.indexOf("show") > -1 || text.indexOf("cool") > -1) {
+      //   speak = "That's a nice idea. Let's take a picture together and put it on Twitter!";
+      //   this.speak(speak, "selfie");
+      // } else if (text.indexOf("redecorate") > -1 || text.indexOf("house") > -1) {
+      //   speak = "I've found a lovely small furniture store nearby, called eekayAh. Would you like some directions?";
+      //   this.speak(speak);
+      // } else if (text.indexOf("yes") > -1 || text.indexOf("please") > -1) {
+      //   speak = "It's nearby, see for yourself.";
+      //   this.speak(speak, "directions");
+    } else {
+      speak = "I'm sorry Rowdy. I don't understand you.";
+      this.speak(speak);
     }
   }
 
@@ -176,12 +191,15 @@ export class SpeechRecognitionComponent implements OnInit {
       finishedCallback: () => {
         if (aAction) {
           switch (aAction) {
+            case "selfie":
+              this.shareSelfie();
+              break;
+            case "lightbulb":
+              this.connectLightbulb(true);
+              break;
             case "movie":
               this.isVideoVisible = true;
               this.showMovie();
-              break;
-            case "selfie":
-              this.shareSelfie();
               break;
             case "directions":
               this.showDirections();
@@ -196,7 +214,7 @@ export class SpeechRecognitionComponent implements OnInit {
   private showMovie() {
     dialogs.confirm("Rotate!").then(result => {
       this.zone.run(() => (this.isVideoVisible = true));
-
+      this.VideoPlayer.nativeElement.height = "100%";
       this.VideoPlayer.nativeElement.play();
     });
   }
@@ -209,7 +227,9 @@ export class SpeechRecognitionComponent implements OnInit {
       })
       .then(imageAsset => {
         new ImageSource().fromAsset(imageAsset).then(imageSource => {
-          // this.Selfie.nativeElement.imageSource = imageSource;
+          this.Selfie.nativeElement.imageSource = imageSource;
+          this.showImage = true;
+          this.zone.run(() => (this.spokenText = ""));
           SocialShare.shareImage(imageSource);
         });
       });
@@ -237,7 +257,7 @@ export class SpeechRecognitionComponent implements OnInit {
       );
   }
 
-  private connectLightbulb() {
+  private connectLightbulb(showColors: boolean) {
     bluetooth.isBluetoothEnabled().then(function(enabled) {
       console.log("Enabled? " + enabled);
     });
@@ -248,24 +268,28 @@ export class SpeechRecognitionComponent implements OnInit {
         seconds: 4,
         skipPermissionCheck: true,
         onDiscovered: peripheral => {
-          console.log("Periperhal found with UUID: " + peripheral.UUID);
-          bluetooth.connect({
-            // UUID: this.uuid,
-            UUID: peripheral.UUID,
-            onConnected: peripheral => {
-              console.log("Periperhal connected with name: " + peripheral.name);
-              console.log("Periperhal connected with UUID: " + peripheral.UUID);
-              // the peripheral object now has a list of available services:
-              peripheral.services.forEach(function(service) {
-                // console.log("service found: " + JSON.stringify(service));
-              });
-
-              this.clearLightbulb();
-            },
-            onDisconnected: peripheral => {
-              console.log("Periperhal disconnected with UUID: " + peripheral.UUID);
-            }
-          });
+          // console.log("Periperhal found with UUID: " + peripheral.UUID);
+          if (peripheral.UUID == this.uuid) {
+            bluetooth.connect({
+              // UUID: this.uuid,
+              UUID: peripheral.UUID,
+              onConnected: peripheral => {
+                // console.log("Periperhal connected with name: " + peripheral.name);
+                // console.log("Periperhal connected with UUID: " + peripheral.UUID);
+                // the peripheral object now has a list of available services:
+                // peripheral.services.forEach(function(service) {
+                //   console.log("service found: " + JSON.stringify(service));
+                // });
+                this.clearLightbulb();
+                if (showColors) {
+                  this.randomColors();
+                }
+              },
+              onDisconnected: peripheral => {
+                console.log("Periperhal disconnected with UUID: " + peripheral.UUID);
+              }
+            });
+          }
         }
       })
       .then(
@@ -298,7 +322,21 @@ export class SpeechRecognitionComponent implements OnInit {
       );
   }
 
-  randomColor() {
+  private randomColors() {
+    let i = 0;
+    let id = setInterval(() => {
+      if (i < 10) {
+        this.randomColor();
+      }
+      i++;
+      if (i > 10) {
+        clearInterval(id);
+        this.clearLightbulb();
+      }
+    }, 1000);
+  }
+
+  private randomColor() {
     let r = Math.floor(Math.random() * 256);
     let g = Math.floor(Math.random() * 256);
     let b = Math.floor(Math.random() * 256);
@@ -328,35 +366,8 @@ export class SpeechRecognitionComponent implements OnInit {
       );
   }
 
-  doInfinityStones() {
-    const stones = [
-      { name: "the space stone", color: "0,255,255" },
-      { name: "mind stone", color: "255,255,0" },
-      { name: "reality stone", color: "255,0,0" },
-      { name: "soul stone", color: "255,75,0" },
-      { name: "power stone", color: "255,0,255" },
-      { name: "and the time stone", color: "0,255,0" }
-    ];
-    let i = -1;
-    let id = setInterval(() => {
-      if (i < 0) {
-        this.speak("Oh mighty Rowdy, here are they!");
-      } else if (i < stones.length) {
-        // console.log(stones[i].name);
-        let colors = stones[i].color.split(",");
-        this.setColor(colors[0], colors[1], colors[2]);
-        this.speak(stones[i].name);
-      }
-      i++;
-      if (i > stones.length) {
-        clearInterval(id);
-        this.clearLightbulb();
-      }
-    }, 3000);
-  }
-
   doConnectLightbulb() {
-    this.connectLightbulb();
+    this.connectLightbulb(false);
   }
 
   doDisconnectLightbulb() {
@@ -370,13 +381,13 @@ export class SpeechRecognitionComponent implements OnInit {
       console.log(JSON.stringify(weather));
       let colors = weather.color.split(",");
       this.setColor(colors[0], colors[1], colors[2]);
-      let text = `The current weather in ${weather.city} (${weather.country}) 
-                  is ${weather.summary}, 
-                  ${weather.temperature} degrees Celcius. `;
+      let text = `The current weather in ${weather.city} (${weather.country}) is ${weather.summary.toLowerCase()}, ${
+        weather.temperature
+      } degrees Celcius. `;
       if (weather.apparentTemperature !== weather.temperature) {
         text += `But it feels like ${weather.apparentTemperature} degrees Celcius. `;
       }
-      text += `The forcast is ${weather.forcast}`;
+      text += `The forecast is ${weather.forcast.toLowerCase()}`;
       this.speak(text);
     });
   }

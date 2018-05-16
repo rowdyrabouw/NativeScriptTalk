@@ -8,23 +8,24 @@
 <StackLayout class="main-content">
     <Gradient height="100%" direction="to bottom" colors="#F6093C, #BB0C32" class="gradient">
         <DockLayout class="transparent-area" height="100%" stretchLastChild="false">
-            <Label [text]="recognizedText" textWrap="true" dock="top" [visibility]="isRecording ? 'visible' : 'collapsed'"></Label>
-            <Label [text]="spokenText" textWrap="true" dock="top" [visibility]="!isRecording ? 'visible' : 'collapsed'"></Label>
-            <!-- <Image #selfie></Image> -->
-            <FlexboxLayout class="buttons " justifyContent="space-between " dock="bottom " height="60 ">
-                <Label [text]=" 'fa-cloud' | fonticon " (tap)="showWeatherActionSheet() " class="fa "></Label>
-                <Label [text]=" 'fa-microphone' | fonticon " (tap)="startListening() " class="fa " [visibility]="!isRecording
-                ? 'visible' : 'collapsed' "></Label>
-                <Label [text]=" 'fa-microphone-slash' | fonticon " (tap)="stopListening() " class="fa " [visibility]="isRecording
-                ? 'visible' : 'collapsed' "></Label>
-                <Label [text]=" 'fa-bluetooth-b' | fonticon " (tap)="showBluetoothActionSheet() " class="fa "></Label>
+            <StackLayout dock="top">
+                <Label [text]="recognizedText" textWrap="true" [visibility]="isRecording ? 'visible' : 'collapsed'"></Label>
+                <Label [text]="spokenText" textWrap="true" [visibility]="!isRecording ? 'visible' : 'collapsed'"></Label>
+                <Image #selfie [visibility]="showImage ? 'visible' : 'collapsed'"></Image>
+                <VideoPlayer #videoplayer src="~/assets/video/deadpool.mp4" autoplay="false" controls="true" [visibility]="isVideoVisible ? 'visible' : 'collapsed'"></VideoPlayer>
+            </StackLayout>
+            <FlexboxLayout class="buttons" justifyContent="space-between" dock="bottom" height="60">
+                <Label [text]="'fa-cloud' | fonticon" (tap)="showWeatherActionSheet()" class="fa"></Label>
+                <Label [text]="'fa-microphone' | fonticon" (tap)="startListening()" class="fa" [visibility]="!isRecording
+                ? 'visible' : 'collapsed'"></Label>
+                <Label [text]="'fa-microphone-slash' | fonticon" (tap)="stopListening()" class="fa" [visibility]="isRecording
+                ? 'visible' : 'collapsed'"></Label>
+                <Label [text]="'fa-bluetooth-b' | fonticon" (tap)="showBluetoothActionSheet()" class="fa"></Label>
             </FlexboxLayout>
         </DockLayout>
 
-        <!-- <StackLayout class="transparent-area " height="100% ">
+        <!-- <StackLayout class="transparent-area" height="100%">
 
-            <VideoPlayer #videoplayer src="~/assets/video/storm.mp4 " autoplay="false " height="100% " controls="true
-                " [visibility]="isVideoVisible ? 'visible' : 'collapsed' "></VideoPlayer>
 
 
         </StackLayout> -->

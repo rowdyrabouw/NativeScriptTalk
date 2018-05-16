@@ -8,17 +8,17 @@ import { Weather } from "../models/weather";
 export class WeatherService {
   apiUrl = "https://api.darksky.net/forecast/ae683ab899c629d358c4fa9c91cab429/";
   cities = [
-    { name: "amsterdam", country: "the netherlands", latitude: 52.3702157, longitude: 4.8951679 },
-    { name: "brugge", country: "belgium", latitude: 51.209348, longitude: 3.2246995 },
-    { name: "ghent", country: "belgium", latitude: 51.0543422, longitude: 3.7174243 },
-    { name: "hamburg", country: "germany", latitude: 53.5510846, longitude: 9.9936819 },
-    { name: "munich", country: "germany", latitude: 48.1351253, longitude: 11.5819805 },
-    { name: "odessa", country: "ukraine", latitude: 46.482526, longitude: 30.7233095 },
-    { name: "sofia", country: "bulgaria", latitude: 42.6977082, longitude: 23.3218675 },
-    { name: "vilnius", country: "lithuania", latitude: 54.6872, longitude: 25.2797 },
-    { name: "gouda", country: "the netherlands", latitude: 52.0115205, longitude: 4.7104633 },
-    { name: "lupin", country: "canada", latitude: 65.756673, longitude: -111.251274 },
-    { name: "bandar-e mahshahr", country: "iran", latitude: 30.5619807, longitude: 49.1727178 }
+    { name: "Amsterdam", country: "The Netherlands", latitude: 52.3702157, longitude: 4.8951679 },
+    { name: "Brugge", country: "Belgium", latitude: 51.209348, longitude: 3.2246995 },
+    { name: "Ghent", country: "Belgium", latitude: 51.0543422, longitude: 3.7174243 },
+    { name: "Hamburg", country: "Germany", latitude: 53.5510846, longitude: 9.9936819 },
+    { name: "Munich", country: "Germany", latitude: 48.1351253, longitude: 11.5819805 },
+    { name: "Odessa", country: "Ukraine", latitude: 46.482526, longitude: 30.7233095 },
+    { name: "Sofia", country: "Bulgaria", latitude: 42.6977082, longitude: 23.3218675 },
+    { name: "Vilnius", country: "Lithuania", latitude: 54.6872, longitude: 25.2797 },
+    { name: "Gouda", country: "The Netherlands", latitude: 52.0115205, longitude: 4.7104633 },
+    { name: "Lupin", country: "Canada", latitude: 65.756673, longitude: -111.251274 },
+    { name: "Bandar-e Mahshahr", country: "Iran", latitude: 30.5619807, longitude: 49.1727178 }
   ];
 
   constructor(private httpClient: HttpClient) {}
@@ -101,16 +101,16 @@ export class WeatherService {
 
   private getWeatherColor(temperature): string {
     // Fahrenheit
-    console.log(temperature);
+    // console.log(temperature);
     let hue = 200 - 160 * (Math.round(temperature) / 75);
-    console.log(hue);
-    console.log(this.hsvToRgb(hue, 100, 100));
+    // console.log(hue);
+    // console.log(this.hsvToRgb(hue, 100, 100));
     return this.hsvToRgb(hue, 100, 100);
   }
 
   getWeather(search) {
     let city = this.cities.find(function(el) {
-      return el.name == search || el.country == search;
+      return el.name.toUpperCase() == search.toUpperCase() || el.country.toUpperCase() == search.toUpperCase();
     });
     return new Promise(resolve => {
       let params = city.latitude + "," + city.longitude;
