@@ -1,5 +1,4 @@
 import { Component, OnInit, NgZone, ViewChild, ElementRef } from "@angular/core";
-import { RouterExtensions } from "nativescript-angular/router";
 import * as dialogs from "ui/dialogs";
 
 import { SpeechRecognition, SpeechRecognitionTranscription } from "nativescript-speech-recognition";
@@ -36,11 +35,14 @@ export class SpeechRecognitionComponent implements OnInit {
   private directions: Directions;
   private speakRate: number;
   recognizedText: string;
-  image: string;
+  spokenText: string;
+  // image: string;
   @ViewChild("videoplayer") VideoPlayer: ElementRef;
+  // @ViewChild("selfie") Selfie: ElementRef;
   isVideoVisible: boolean = false;
+  isRecording: boolean = false;
 
-  constructor(private routerExtensions: RouterExtensions, private weatherService: WeatherService, private zone: NgZone) {}
+  constructor(private weatherService: WeatherService, private zone: NgZone) {}
 
   ngOnInit() {
     this.text2speech = new TNSTextToSpeech();
@@ -51,8 +53,40 @@ export class SpeechRecognitionComponent implements OnInit {
     this.speakRate = isIOS ? 0.5 : 1;
   }
 
-  navigateToHome() {
-    this.routerExtensions.navigate(["/"]);
+  showWeatherActionSheet() {
+    dialogs
+      .action({
+        message: "Weather",
+        cancelButtonText: "Cancel",
+        actions: ["Vilnius", "Gouda", "Iran", "Lupin"]
+      })
+      .then(result => {
+        console.log("Dialog result: " + result);
+        this.getWeather(result);
+      });
+  }
+
+  showBluetoothActionSheet() {
+    dialogs
+      .action({
+        message: "Bluetooth",
+        cancelButtonText: "Cancel",
+        actions: ["Connect", "Infinity Stones", "Disconnect"]
+      })
+      .then(result => {
+        console.log("Dialog result: " + result);
+        switch (result) {
+          case "Connect":
+            this.doConnectLightbulb();
+            break;
+          case "Infinity Stones":
+            this.doInfinityStones();
+            break;
+          case "Disconnect":
+            this.doDisconnectLightbulb();
+            break;
+        }
+      });
   }
 
   private checkAvailability(): void {
@@ -68,6 +102,9 @@ export class SpeechRecognitionComponent implements OnInit {
   }
 
   startListening() {
+    this.recognizedText = "";
+    this.spokenText = "";
+    this.isRecording = true;
     this.speechRecognition
       .startListening({
         // optional, uses the device locale by default
@@ -92,6 +129,7 @@ export class SpeechRecognitionComponent implements OnInit {
   }
 
   stopListening() {
+    this.isRecording = false;
     this.speechRecognition.stopListening().then(
       () => {
         console.log(`stopped listening`);
@@ -107,7 +145,7 @@ export class SpeechRecognitionComponent implements OnInit {
     let text = this.recognizedText;
     let speak: string;
     if (text.indexOf("introduce") > -1 || text.indexOf("yourself") > -1) {
-      speak = "Sveiki visi. Puiku būti čia Vilnius. Tęskime anglų kalbą, taigi Rowdy taip pat gali tai suvokti.";
+      speak = "Sveiki visi. Aš esu Diana. Puiku būti čia Vilniuje. Leiskite mums tęsti anglų kalbą, taigi Rowdy taip pat gali tai suvokti.";
       this.speak(speak);
     } else if (text.indexOf("character") > -1 || text.indexOf("marvel") > -1) {
       speak =
@@ -129,6 +167,7 @@ export class SpeechRecognitionComponent implements OnInit {
   }
 
   private speak(aText: string, aAction?: string) {
+    this.spokenText = aText;
     let speakOptions: SpeakOptions = {
       text: aText,
       speakRate: this.speakRate,
@@ -170,6 +209,7 @@ export class SpeechRecognitionComponent implements OnInit {
       })
       .then(imageAsset => {
         new ImageSource().fromAsset(imageAsset).then(imageSource => {
+          // this.Selfie.nativeElement.imageSource = imageSource;
           SocialShare.shareImage(imageSource);
         });
       });
