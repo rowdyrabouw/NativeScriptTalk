@@ -20,6 +20,11 @@ export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, "/i18n/", ".json");
 }
 
+registerElement("MLKitBarcodeScanner", () => require("nativescript-plugin-firebase/mlkit/barcodescanning").MLKitBarcodeScanner);
+registerElement("MLKitFaceDetection", () => require("nativescript-plugin-firebase/mlkit/facedetection").MLKitFaceDetection);
+registerElement("MLKitTextRecognition", () => require("nativescript-plugin-firebase/mlkit/textrecognition").MLKitTextRecognition);
+registerElement("MLKitImageLabeling", () => require("nativescript-plugin-firebase/mlkit/imagelabeling").MLKitImageLabeling);
+
 registerElement("Gradient", () => require("nativescript-gradient").Gradient);
 
 @NgModule({

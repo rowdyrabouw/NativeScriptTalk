@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AD_UNIT_ID_FOR_BANNER_TEST</key>
+	<string>ca-app-pub-3940256099942544/2934735716</string>
+	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
+	<string>ca-app-pub-3940256099942544/4411468910</string>
+	<key>CLIENT_ID</key>
+	<string>376637747677-sf7pgsplsta3hmdjmjicg8p6pb3amstv.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.376637747677-sf7pgsplsta3hmdjmjicg8p6pb3amstv</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAT1emoCMDIuDVtnzUSJY-ie5rqK__p1zs</string>
+	<key>GCM_SENDER_ID</key>
+	<string>376637747677</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>nl.doubler.nativescripttalk</string>
+	<key>PROJECT_ID</key>
+	<string>nativescripttalk</string>
+	<key>STORAGE_BUCKET</key>
+	<string>nativescripttalk.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<true></true>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<false></false>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:376637747677:ios:67854d046b5a2a31</string>
+	<key>DATABASE_URL</key>
+	<string>https://nativescripttalk.firebaseio.com</string>
+</dict>
+</plist>
