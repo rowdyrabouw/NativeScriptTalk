@@ -1,0 +1,17 @@
+<GridLayout rows="auto, auto, *, auto" style="padding: 20 0 0 0">
+
+  <StackLayout row="1" horizontalAlignment="center">
+    <Button text="Cameraroll" (tap)="fromCameraroll()"></Button>
+    <!-- the image may require rotation on Android, and permission may be required - not feeling like exposing this for now -->
+    <iOS>
+      <Button text="Cam picture" (tap)="fromCameraPicture()"></Button>
+    </iOS>
+    <Button text="Cam feed" (tap)="fromCameraFeed()"></Button>
+  </StackLayout>
+
+  <Image row="2" [src]="pickedImage" width="240" horizontalAlignment="center" (tap)="reusePickedImage()"></Image>
+
+  <Label row="3" [text]="pickedImage ? '⬆️ Tap the image to use it again' : ''" textWrap="true" horizontalAlignment="center"
+    class="m-b-20" width="100%"></Label>
+
+</GridLayout>

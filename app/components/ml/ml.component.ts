@@ -21,9 +21,6 @@
 import { Component } from "@angular/core";
 import { MLKitImageLabelingOnDeviceResult } from "nativescript-plugin-firebase/mlkit/imagelabeling";
 
-import { registerElement } from "nativescript-angular/element-registry";
-registerElement("MLKitImageLabeling", () => require("nativescript-plugin-firebase/mlkit/").MLKitTextRecognition);
-
 @Component({
   selector: "mlkit-imagelabeling",
   moduleId: module.id,

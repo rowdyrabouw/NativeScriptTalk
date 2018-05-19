@@ -13,12 +13,13 @@
             </StackLayout>
 
             <StackLayout class="buttons">
-                <Button class="btn btn-primary" text="Slider" (tap)="navigateToSlider()"></Button>
+                <Button class="btn btn-primary" [text]="'HOME.SLIDER' | translate" (tap)="navigateToSlider()"></Button>
 
-                <Button class="btn btn-primary" text="English" (tap)="changeLanguage('en')"></Button>
-                <Button class="btn btn-primary" text="Lithuanian" (tap)="changeLanguage('lt')"></Button>
+                <Button class="btn btn-primary" [text]="'HOME.ENGLISH' | translate" (tap)="changeLanguage('en')"></Button>
+                <Button class="btn btn-primary" [text]="'HOME.FOREIGN' | translate" (tap)="changeLanguage( 'lt')"></Button>
 
-                <Button class="btn btn-primary" text="Speech Recognition" (tap)="navigateToSpeechRecognition()"></Button>
+                <Button class="btn btn-primary " [text]="'HOME.MACHINE_LEARNING' | translate" (tap)="navigateToMachineLearning()"></Button>
+                <Button class="btn btn-primary" [text]="'HOME.SPEECH_RECOGNITION' | translate" (tap)="navigateToSpeechRecognition()"></Button>
             </StackLayout>
         </StackLayout>
     </Gradient>

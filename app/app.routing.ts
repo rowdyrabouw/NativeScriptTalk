@@ -3,10 +3,10 @@ import { NativeScriptRouterModule } from "nativescript-angular/router";
 import { Routes } from "@angular/router";
 
 const routes: Routes = [
-  { path: "", redirectTo: "/tabs", pathMatch: "full" },
+  { path: "", redirectTo: "/home", pathMatch: "full" },
   { path: "home", loadChildren: "./components/home/home.module#HomeModule" },
-  // { path: "ml", loadChildren: "./components/ml/ml.module#MLModule" },
-  { path: "tabs", loadChildren: "./components/tabs/tabs.module#TabsModule" },
+  { path: "ml", loadChildren: "./components/ml/ml.module#MLModule" },
+  { path: "mlkit", loadChildren: "./components/mlkit/mlkit.module#MLKitModule" },
   { path: "slider", loadChildren: "./components/slider/slider.module#SliderModule" },
   { path: "speechrecognition", loadChildren: "./components/speechrecognition/speechrecognition.module#SpeechRecognitionModule" }
 ];

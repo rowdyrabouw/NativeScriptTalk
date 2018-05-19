@@ -47,4 +47,8 @@ export class HomeComponent implements OnInit {
   navigateToGuessThatSong() {
     this.routerExtensions.navigate(["/guess"]);
   }
+
+  navigateToMachineLearning() {
+    this.routerExtensions.navigate(["/ml"]);
+  }
 }

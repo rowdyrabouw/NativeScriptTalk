@@ -1,7 +1,12 @@
 {
   "HOME": {
     "TITLE": "Hello DevDays Vilnius!",
-    "TEXT": "It's great to be here and introduce NativeScript to you."
+    "TEXT": "It's great to be here and introduce NativeScript to you.",
+    "SLIDER": "Slider",
+    "ENGLISH": "English",
+    "FOREIGN": "Lithuanian",
+    "MACHINE_LEARNING": "Machine Learning",
+    "SPEECH_RECOGNITION": "Speech Recognition"
   },
   "SPEECH": {
     "TITLE": "Speech recognition!"
