@@ -8,6 +8,9 @@
     "MACHINE_LEARNING": "Machine Learning",
     "SPEECH_RECOGNITION": "Speech Recognition"
   },
+  "ML": {
+    "TITLE": "Machine Learning!"
+  },
   "SPEECH": {
     "TITLE": "Speech recognition!"
   }

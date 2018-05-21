@@ -1,62 +1,26 @@
-<!-- <ActionBar class="action-bar" flat="true" (tap)="testAudio()">
-    <NavigationButton visibility="collapsed"></NavigationButton>
-    <StackLayout horizontalAlignment="center">
-        <Label [text]="'HOME.TITLE' | translate"></Label>
-    </StackLayout>
+<ActionBar class="action-bar" flat="true">
+  <NavigationButton visibility="collapsed"></NavigationButton>
+  <StackLayout horizontalAlignment="center">
+    <Label [text]="'ML.TITLE' | translate"></Label>
+  </StackLayout>
 </ActionBar>
 
 <StackLayout class="main-content">
-    <Gradient height="100%" direction="to bottom" colors="#6298ee, #5776b8" class="gradient">
-        <StackLayout class="transparent-area" height="100%">
-            <StackLayout class="text">
-                <Label [text]="'HOME.TEXT' | translate" textWrap="true"></Label>
-            </StackLayout>
+  <Gradient height="100%" direction="to bottom" colors="#0ABC0A, #0F900F" class="gradient">
+    <GridLayout rows="auto, auto, *, auto" class="transparent-area" height="100%">
 
-            <StackLayout class="buttons">
-                <Button class="btn btn-primary" text="Slider" (tap)="navigateToSlider()"></Button>
+      <StackLayout row="1" class="buttons">
+        <Button class="btn btn-primary" text="Camera roll" (tap)="fromCameraroll()"></Button>
+        <!-- the image may require rotation on Android, and permission may be required - not feeling like exposing this for now -->
+        <iOS>
+          <Button class="btn btn-primary" text="Take a picture" (tap)="fromCameraPicture()"></Button>
+        </iOS>
+      </StackLayout>
 
-                <Button class="btn btn-primary" text="English" (tap)="changeLanguage('en')"></Button>
-                <Button class="btn btn-primary" text="Lithuanian" (tap)="changeLanguage('lt')"></Button>
+      <Image row="2" [src]="pickedImage" width="240" horizontalAlignment="center" (tap)="reusePickedImage()" style="border-radius: 20;"></Image>
 
-                <Button class="btn btn-primary" text="Speech Recognition" (tap)="navigateToSpeechRecognition()"></Button>
-            </StackLayout>
-        </StackLayout>
-    </Gradient>
-</StackLayout> -->
+    </GridLayout>
 
-<!-- <ActionBar class="action-bar">
-    <Label class="action-bar-title" text="Text recognition"></Label>
-</ActionBar>
 
-<GridLayout rows="auto, *">
-
-    <MLKitTextRecognition row="0" width="260" height="340" (scanResult)="onTextRecognitionResult($event)">
-    </MLKitTextRecognition>
-
-    <ListView row="1" [items]="blocks" class="m-t-20">
-        <ng-template let-item="item">
-            <Label class="mlkit-result" textWrap="true" [text]="item.text"></Label>
-        </ng-template>
-    </ListView>
-
-</GridLayout> -->
-
-<ActionBar class="action-bar">
-    <Label class="action-bar-title" text="Image labeling"></Label>
-</ActionBar>
-
-<GridLayout rows="auto, *">
-
-    <MLKitImageLabeling row="0" width="260" height="340" confidenceThreshold="0.6" (scanResult)="onImageLabelingResult($event)">
-    </MLKitImageLabeling>
-
-    <ListView row="1" [items]="labels" class="m-t-20">
-        <ng-template let-item="item">
-            <GridLayout columns="3*, 2*">
-                <Label col="0" class="mlkit-result" textWrap="true" [text]="item.text"></Label>
-                <Label col="1" class="mlkit-result" textWrap="true" [text]="item.confidence | number"></Label>
-            </GridLayout>
-        </ng-template>
-    </ListView>
-
-</GridLayout>
+  </Gradient>
+</StackLayout>

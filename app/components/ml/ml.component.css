@@ -1,5 +1,5 @@
-/* .action-bar {
-  background-color: rgb(98, 152, 238);
+.action-bar {
+  background-color: #0ABC0A;
   color: rgb(255, 255, 255);
   font-weight: bold;
   font-size: 24;
@@ -28,4 +28,4 @@
 
 .buttons {
   padding-top: 20;
-} */
+}
