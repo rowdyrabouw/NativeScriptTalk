@@ -18,7 +18,8 @@ export class WeatherService {
     { name: "Vilnius", country: "Lithuania", latitude: 54.6872, longitude: 25.2797 },
     { name: "Gouda", country: "The Netherlands", latitude: 52.0115205, longitude: 4.7104633 },
     { name: "Lupin", country: "Canada", latitude: 65.756673, longitude: -111.251274 },
-    { name: "Bandar-e Mahshahr", country: "Iran", latitude: 30.5619807, longitude: 49.1727178 }
+    { name: "Bandar-e Mahshahr", country: "Iran", latitude: 30.5619807, longitude: 49.1727178 },
+    { name: "Karachi", country: "Pakistan", latitude: 24.8607343, longitude: 67.00113639999995 }
   ];
 
   constructor(private httpClient: HttpClient) {}
