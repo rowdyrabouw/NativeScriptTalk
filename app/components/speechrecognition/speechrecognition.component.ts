@@ -25,7 +25,8 @@ import { isIOS } from "tns-core-modules/ui/frame/frame";
 })
 export class SpeechRecognitionComponent implements OnInit {
   // lightbulb
-  private uuid = "CA9F644C-1750-4572-8833-1D137A9B9A05";
+  // private uuid = "CA9F644C-1750-4572-8833-1D137A9B9A05";
+  private uuid = "C3371AAF-E6A5-4BB9-BA2E-6F45E0ACFA7A";
   private service = "ff0f";
   private characteristic = "fffc";
 
@@ -38,9 +39,10 @@ export class SpeechRecognitionComponent implements OnInit {
   image: string;
   @ViewChild("videoplayer") VideoPlayer: ElementRef;
   @ViewChild("selfie") Selfie: ElementRef;
-  isVideoVisible: boolean = true;
+  isVideoVisible: boolean = false;
   isRecording: boolean = false;
   showImage: boolean = false;
+  bluetoothConnected: boolean = false;
 
   constructor(private weatherService: WeatherService, private zone: NgZone) {}
 
@@ -148,23 +150,35 @@ export class SpeechRecognitionComponent implements OnInit {
     } else if (text.indexOf("share") > -1 || text.indexOf("selfie") > -1) {
       speak = "That's a nice idea. Let's take a picture together and put it on Twitter!";
       this.speak(speak, "selfie");
-    } else if (text.indexOf("light") > -1) {
+    } else if (text.indexOf("lights") > -1) {
       speak = "Oh Rowdy. You were born to light up the world!";
       this.speak(speak, "lightbulb");
     } else if (text.indexOf("weather") > -1 && text.indexOf("here") > -1) {
+      if (!this.bluetoothConnected) {
+        this.connectLightbulb(false);
+      }
       this.getWeather("vilnius");
     } else if (text.indexOf("weather") > -1 && text.indexOf("hometown") > -1) {
+      if (!this.bluetoothConnected) {
+        this.connectLightbulb(false);
+      }
       this.getWeather("gouda");
     } else if (text.indexOf("weather") > -1 && text.indexOf("hot") > -1) {
-      this.getWeather("iran");
+      if (!this.bluetoothConnected) {
+        this.connectLightbulb(false);
+      }
+      this.getWeather("karachi");
     } else if (text.indexOf("weather") > -1 && text.indexOf("cold") > -1) {
+      if (!this.bluetoothConnected) {
+        this.connectLightbulb(false);
+      }
       this.getWeather("lupin");
     } else if (text.indexOf("song") > -1 || text.indexOf("lyric") > -1) {
       speak =
         "Don't call it a comeback. I've been here for years. I'm rocking my peers. Puting suckers in fear. Making the tears rain down like a monsoon. Listen to the bass go boom!";
       this.speak(speak);
     } else if (text.indexOf("answer") > -1) {
-      speak = "It's LL Cool J with Mama Said Knock You Out from the Deadpool 2 movie.";
+      speak = "It's LL Cool J with Mama Said Knock You Out from the Deadpool 2 movie trailer.";
       this.speak(speak, "movie");
       // } else if (text.indexOf("show") > -1 || text.indexOf("cool") > -1) {
       //   speak = "That's a nice idea. Let's take a picture together and put it on Twitter!";
@@ -268,13 +282,17 @@ export class SpeechRecognitionComponent implements OnInit {
         seconds: 4,
         skipPermissionCheck: true,
         onDiscovered: peripheral => {
-          // console.log("Periperhal found with UUID: " + peripheral.UUID);
+          console.log("Periperhal found with UUID: " + peripheral.UUID);
           if (peripheral.UUID == this.uuid) {
+            bluetooth.stopScanning().then(function() {
+              console.log("scanning stopped");
+            });
             bluetooth.connect({
               // UUID: this.uuid,
               UUID: peripheral.UUID,
               onConnected: peripheral => {
-                // console.log("Periperhal connected with name: " + peripheral.name);
+                this.bluetoothConnected = true;
+                console.log("Periperhal connected with name: " + peripheral.name);
                 // console.log("Periperhal connected with UUID: " + peripheral.UUID);
                 // the peripheral object now has a list of available services:
                 // peripheral.services.forEach(function(service) {
@@ -286,6 +304,7 @@ export class SpeechRecognitionComponent implements OnInit {
                 }
               },
               onDisconnected: peripheral => {
+                this.bluetoothConnected = false;
                 console.log("Periperhal disconnected with UUID: " + peripheral.UUID);
               }
             });
