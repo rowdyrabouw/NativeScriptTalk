@@ -145,34 +145,34 @@ export class SpeechRecognitionComponent implements OnInit {
     let text = this.recognizedText;
     let speak: string;
     if (text.indexOf("introduce") > -1 || text.indexOf("yourself") > -1) {
-      speak = "Sveiki visi. Aš esu Diana. Puiku būti čia Vilnius. Leiskite mums tęsti anglų kalbą, taigi Rowdy taip pat gali tai suvokti.";
-      this.speak(speak);
+      speak = "Hallo allemaal. Mijn naam is Diana. Het is geweldig om hier in Brugge te mogen zijn.";
+      this.speakLocal(speak);
     } else if (text.indexOf("share") > -1 || text.indexOf("selfie") > -1) {
       speak = "That's a nice idea. Let's take a picture together and put it on Twitter!";
       this.speak(speak, "selfie");
-    } else if (text.indexOf("lights") > -1) {
-      speak = "Oh Rowdy. You were born to light up the world!";
-      this.speak(speak, "lightbulb");
-    } else if (text.indexOf("weather") > -1 && text.indexOf("here") > -1) {
-      if (!this.bluetoothConnected) {
-        this.connectLightbulb(false);
-      }
-      this.getWeather("vilnius");
+      // } else if (text.indexOf("lights") > -1) {
+      //   speak = "Oh Rowdy. You were born to light up the world!";
+      //   this.speak(speak, "lightbulb");
+      // } else if (text.indexOf("weather") > -1 && text.indexOf("here") > -1) {
+      // if (!this.bluetoothConnected) {
+      //   this.connectLightbulb(false);
+      // }
+      // this.getWeather("vilnius");
     } else if (text.indexOf("weather") > -1 && text.indexOf("hometown") > -1) {
-      if (!this.bluetoothConnected) {
-        this.connectLightbulb(false);
-      }
+      // if (!this.bluetoothConnected) {
+      //   this.connectLightbulb(false);
+      // }
       this.getWeather("gouda");
-    } else if (text.indexOf("weather") > -1 && text.indexOf("hot") > -1) {
-      if (!this.bluetoothConnected) {
-        this.connectLightbulb(false);
-      }
-      this.getWeather("karachi");
-    } else if (text.indexOf("weather") > -1 && text.indexOf("cold") > -1) {
-      if (!this.bluetoothConnected) {
-        this.connectLightbulb(false);
-      }
-      this.getWeather("lupin");
+      // } else if (text.indexOf("weather") > -1 && text.indexOf("hot") > -1) {
+      //   if (!this.bluetoothConnected) {
+      //     this.connectLightbulb(false);
+      //   }
+      //   this.getWeather("karachi");
+      // } else if (text.indexOf("weather") > -1 && text.indexOf("cold") > -1) {
+      //   if (!this.bluetoothConnected) {
+      //     this.connectLightbulb(false);
+      //   }
+      //   this.getWeather("lupin");
     } else if (text.indexOf("song") > -1 || text.indexOf("lyric") > -1) {
       speak =
         "Don't call it a comeback. I've been here for years. I'm rocking my peers. Puting suckers in fear. Making the tears rain down like a monsoon. Listen to the bass go boom!";
@@ -186,9 +186,9 @@ export class SpeechRecognitionComponent implements OnInit {
       // } else if (text.indexOf("redecorate") > -1 || text.indexOf("house") > -1) {
       //   speak = "I've found a lovely small furniture store nearby, called eekayAh. Would you like some directions?";
       //   this.speak(speak);
-      // } else if (text.indexOf("yes") > -1 || text.indexOf("please") > -1) {
-      //   speak = "It's nearby, see for yourself.";
-      //   this.speak(speak, "directions");
+    } else if (text.indexOf("chocolate") > -1 || text.indexOf("chocolates") > -1 || text.indexOf("year") > -1) {
+      speak = "I remember it. You bought some nice Ecuador Dark 71% chocolate drops at Choco Story. Let's get some more.";
+      this.speak(speak, "directions");
     } else {
       speak = "I'm sorry Rowdy. I don't understand you.";
       this.speak(speak);
@@ -225,6 +225,18 @@ export class SpeechRecognitionComponent implements OnInit {
     this.text2speech.speak(speakOptions);
   }
 
+  private speakLocal(aText: string) {
+    this.spokenText = aText;
+    let speakOptions: SpeakOptions = {
+      text: aText,
+      speakRate: this.speakRate,
+      pitch: 1.2,
+      locale: "nl-BE",
+      finishedCallback: () => {}
+    };
+    this.text2speech.speak(speakOptions);
+  }
+
   private showMovie() {
     dialogs.confirm("Rotate!").then(result => {
       this.zone.run(() => (this.isVideoVisible = true));
@@ -253,11 +265,11 @@ export class SpeechRecognitionComponent implements OnInit {
     this.directions
       .navigate({
         from: {
-          address: "Radisson Blu Waterfront Hotel, Stockholm"
+          address: "Vaartdijkstraat 5, Brugge"
         },
         to: [
           {
-            address: "Regeringsgatan 65, 111 56 Stockholm, Sweden"
+            address: "Wijnzakstraat 2, Brugge"
           }
         ]
       })

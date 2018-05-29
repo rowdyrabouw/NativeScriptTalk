@@ -10,6 +10,9 @@ import { startAccelerometerUpdates, stopAccelerometerUpdates } from "nativescrip
 })
 export class ControlsComponent {
   intervalId: number;
+  isWinking: boolean = false;
+  soundIndex: number = 0;
+  isJetMode: boolean = false;
 
   private _speed: number = 24;
   get speed() {
@@ -46,12 +49,15 @@ export class ControlsComponent {
   constructor() {}
 
   public startAccelerometer() {
-    startAccelerometerUpdates(data => {
-      this.turnSpeed = data.x; // lean left (0 to -1) / right (0 to 1)
-      this.speed = data.y; // lean forward (0 to -1) / back (0 to 1)
-    });
-
-    this.startContinousMove();
+    this.isJetMode = !this.isJetMode;
+    console.log("isJetMode", this.isJetMode);
+    if (this.isJetMode) {
+      startAccelerometerUpdates(data => {
+        this.turnSpeed = data.x; // lean left (0 to -1) / right (0 to 1)
+        this.speed = data.y; // lean forward (0 to -1) / back (0 to 1)
+      });
+      this.startContinousMove();
+    }
   }
 
   public startContinousMove() {
@@ -65,17 +71,28 @@ export class ControlsComponent {
   }
 
   doSound() {
-    let soundIndex = this._getRandomInt(1, 106); // value from 1 - 106
-    AllMips.playOneSound(soundIndex, 0, 0);
+    // const sounds = [3, 2, 41];
+    const sounds = [2, 41];
+    let sound = sounds[this.soundIndex];
+    this.soundIndex++;
+    if (this.soundIndex >= sounds.length) {
+      this.soundIndex = 0;
+    }
+    AllMips.playOneSound(sound, 0, 0);
   }
 
-  doColorOld() {
-    const colors = [[255, 0, 0], [255, 128, 0], [], [], [], [], [], [], [], [], []];
-    let red = this._getRandomInt(0, 255);
-    let green = this._getRandomInt(0, 255);
-    let blue = this._getRandomInt(0, 255);
-    AllMips.setChestLED(red, green, blue);
-  }
+  // doRandomSound() {
+  //   let soundIndex = this._getRandomInt(1, 106); // value from 1 - 106
+  //   AllMips.playOneSound(soundIndex, 0, 0);
+  // }
+
+  // doRandomColor() {
+  //   const colors = [[255, 0, 0], [255, 128, 0], [], [], [], [], [], [], [], [], []];
+  //   let red = this._getRandomInt(0, 255);
+  //   let green = this._getRandomInt(0, 255);
+  //   let blue = this._getRandomInt(0, 255);
+  //   AllMips.setChestLED(red, green, blue);
+  // }
 
   doColor() {
     const colors = [
@@ -108,7 +125,7 @@ export class ControlsComponent {
         // console.log("Chestlight stopped");
         // AllMips.setChestLED(255, 0, 0);
       }
-    }, 250);
+    }, 300);
   }
 
   doWink() {

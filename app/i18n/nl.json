@@ -1,11 +1,11 @@
 {
   "HOME": {
     "TITLE": "Hallo JSConf België!",
-    "TEXT": "Het is geweldig om hier te zijn en NativeScript aan u te introduceren.",
+    "TEXT": "Het is geweldig om NativeScript aan u te introduceren.",
     "SLIDER": "Schuif",
     "ENGLISH": "Engels",
     "FOREIGN": "Nederlands",
-    "MIP": "MIP",
+    "MIP": "WowWee MiP",
     "MACHINE_LEARNING": "Machine Learning",
     "SPEECH_RECOGNITION": "Spraakherkenning"
   },
@@ -13,8 +13,9 @@
     "TITLE": "Machine Learning!"
   },
   "MIP": {
-    "TITLE": "MIP!",
+    "TITLE": "WowWee MiP!",
     "SCAN": "Zoeken",
+    "CONNECT": "Verbinden",
     "CONTROLS": "Bediening"
   },
   "SPEECH": {
