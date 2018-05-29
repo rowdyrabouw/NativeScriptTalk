@@ -48,6 +48,10 @@ export class HomeComponent implements OnInit {
     this.routerExtensions.navigate(["/guess"]);
   }
 
+  navigateToMip() {
+    this.routerExtensions.navigate(["/mip"]);
+  }
+
   navigateToMachineLearning() {
     this.routerExtensions.navigate(["/ml"]);
   }

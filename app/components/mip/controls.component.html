@@ -1,0 +1,60 @@
+<!--
+<ActionBar class="actionbar">
+  <NavigationButton visibility="collapsed"></NavigationButton>
+  <StackLayout>
+    <GridLayout columns="35 * 45">
+      <Label [text]="'fa-bars' | fonticon" (tap)="toggleDrawer()" class="fa fa-white center" col="0"></Label>
+      <Label [text]="'MIP.TITLE' | translate" class="actionbar-title" col="1"></Label>
+    </GridLayout>
+  </StackLayout>
+</ActionBar>
+
+<ScrollView>
+  <StackLayout>
+
+    <Label [text]="'Speed:' + speed" textWrap="true"></Label>
+    <Slider minValue="0" maxValue="32" [(ngModel)]="speed"></Slider>
+
+    <Label text="{{ 'Turn Speed:' + turnSpeed}}" textWrap="true"></Label>
+    <Slider minValue="0" maxValue="32" [(ngModel)]="turnSpeed"></Slider>
+
+    <Button text="Forward" (tap)="moveForward()"></Button>
+
+    <DockLayout orientation="horizontal">
+      <Button dock="left" text="Left" (tap)="turnLeft()" width="50%"></Button>
+      <Button dock="right" text="Right" (tap)="turnRight()" width="50%"></Button>
+    </DockLayout>
+
+    <Button text="Back" (tap)="moveBack()"></Button>
+    <Button text="Accelerometer" (tap)="startAccelerometer()" style="margin-top: 50"></Button>
+
+  </StackLayout>
+</ScrollView>
+
+-->
+
+<ActionBar class="action-bar" flat="true">
+  <NavigationButton visibility="collapsed"></NavigationButton>
+  <StackLayout horizontalAlignment="center">
+    <Label [text]="'MIP.TITLE' | translate"></Label>
+  </StackLayout>
+</ActionBar>
+
+<StackLayout class="main-content">
+  <Gradient height="100%" direction="to bottom" colors="#D109D1, #7A067A" class="gradient">
+    <StackLayout class="transparent-area" height="100%">
+      <GridLayout rows="160" columns="*, 80, 80, 80, *" class="buttons">
+        <Label row="0" col="1" [text]="'fa-volume-up' | fonticon" (tap)="doSound()" class="fa"></Label>
+        <Label row="0" col="2" [text]="'fa-lightbulb-o' | fonticon" (tap)="doColor()" class="fa"></Label>
+        <Label row="0" col="3" [text]="'fa-eye' | fonticon" (tap)="doWink()" class="fa"></Label>
+      </GridLayout>
+      <GridLayout rows="80, 80, 80" columns="*, 80, 80, 80, *" class="buttons">
+        <Label row="0" col="2" [text]="'fa-arrow-up' | fonticon" (tap)="moveForward()" class="fa"></Label>
+        <Label row="1" col="1" [text]="'fa-arrow-left' | fonticon" (tap)="turnLeft()" class="fa"></Label>
+        <Label row="1" col="2" [text]="'fa-fighter-jet' | fonticon" (tap)="startAccelerometer()" class="fa"></Label>
+        <Label row="1" col="3" [text]="'fa-arrow-right' | fonticon" (tap)="turnRight()" class="fa"></Label>
+        <Label row="2" col="2" [text]="'fa-arrow-down' | fonticon" (tap)="moveBack()" class="fa"></Label>
+      </GridLayout>
+    </StackLayout>
+  </Gradient>
+</StackLayout>
