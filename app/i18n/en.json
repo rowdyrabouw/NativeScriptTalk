@@ -1,12 +1,19 @@
 {
   "HOME": {
-    "TITLE": "Hello DevDays Vilnius!",
-    "TEXT": "It's great to be here and introduce NativeScript to you.",
+    "TITLE": "Hello JSConf Belgium!",
+    "TEXT": "It's great to introduce NativeScript to you.",
     "SLIDER": "Slider",
     "ENGLISH": "English",
-    "FOREIGN": "Lithuanian",
+    "FOREIGN": "Dutch",
+    "MIP": "WowWee MiP",
     "MACHINE_LEARNING": "Machine Learning",
     "SPEECH_RECOGNITION": "Speech Recognition"
+  },
+  "MIP": {
+    "TITLE": "WowWee MiP!",
+    "SCAN": "Scan",
+    "CONNECT": "Connect",
+    "CONTROLS": "Controls"
   },
   "ML": {
     "TITLE": "Machine Learning!"
