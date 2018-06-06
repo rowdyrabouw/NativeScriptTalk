@@ -1,6 +1,6 @@
 {
   "HOME": {
-    "TITLE": "Hello JSConf Belgium!",
+    "TITLE": "Hello Dutch PHP Conference!",
     "TEXT": "It's great to introduce NativeScript to you.",
     "SLIDER": "Slider",
     "ENGLISH": "English",
@@ -20,5 +20,8 @@
   },
   "SPEECH": {
     "TITLE": "Speech recognition!"
+  },
+  "NAVIGATION": {
+    "BACK": "Back"
   }
 }
