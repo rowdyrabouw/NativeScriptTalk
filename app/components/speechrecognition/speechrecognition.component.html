@@ -1,8 +1,5 @@
-<ActionBar class="action-bar" flat="true">
-    <NavigationButton visibility="collapsed"></NavigationButton>
-    <StackLayout horizontalAlignment="center">
-        <Label [text]="'SPEECH.TITLE' | translate"></Label>
-    </StackLayout>
+<ActionBar class="action-bar" flat="true" [title]="'SPEECH.TITLE' | translate">
+    <NavigationButton [text]="'NAVIGATION.BACK' | translate"></NavigationButton>
 </ActionBar>
 
 <StackLayout class="main-content">
