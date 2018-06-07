@@ -1,4 +1,5 @@
 <ActionBar class="action-bar" flat="true" [title]="'SPEECH.TITLE' | translate">
+    <ActionItem text="Help" (tap)="showActionSheet()" ios.position="right" android.position="popup"></ActionItem>
     <NavigationButton [text]="'NAVIGATION.BACK' | translate"></NavigationButton>
 </ActionBar>
 
@@ -11,8 +12,8 @@
                 <Image #selfie [visibility]="showImage ? 'visible' : 'collapsed'"></Image>
                 <VideoPlayer #videoplayer src="~/assets/video/deadpool.mp4" autoplay="false" controls="true" [visibility]="isVideoVisible ? 'visible' : 'collapsed'"></VideoPlayer>
             </StackLayout>
-            <FlexboxLayout class="buttons" justifyContent="space-between" dock="bottom" height="60">
-                <Label [text]="'fa-cloud' | fonticon" (tap)="showWeatherActionSheet()" class="fa"></Label>
+            <FlexboxLayout class="buttons" justifyContent="space-around" dock="bottom" height="60">
+                <!-- <Label [text]="'fa-cloud' | fonticon" (tap)="showWeatherActionSheet()" class="fa"></Label> -->
                 <Label [text]="'fa-microphone' | fonticon" (tap)="startListening()" class="fa" [visibility]="!isRecording
                 ? 'visible' : 'collapsed'"></Label>
                 <Label [text]="'fa-microphone-slash' | fonticon" (tap)="stopListening()" class="fa" [visibility]="isRecording

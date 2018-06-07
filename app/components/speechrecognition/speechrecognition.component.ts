@@ -54,16 +54,32 @@ export class SpeechRecognitionComponent implements OnInit {
     this.speakRate = isIOS ? 0.5 : 1;
   }
 
-  showWeatherActionSheet() {
+  showActionSheet() {
     dialogs
       .action({
-        message: "Weather",
+        message: "Help!",
         cancelButtonText: "Cancel",
-        actions: ["Vilnius", "Gouda", "Iran", "Lupin"]
+        actions: ["Introduction", "Selfie", "Weather", "Directions", "Movie"]
       })
       .then(result => {
         console.log("Dialog result: " + result);
-        this.getWeather(result);
+        switch (result) {
+          case "Introduction":
+            this.introduction();
+            break;
+          case "Selfie":
+            this.selfie();
+            break;
+          case "Weather":
+            this.weather();
+            break;
+          case "Directions":
+            this.doDirections();
+            break;
+          case "Movie":
+            this.movie();
+            break;
+        }
       });
   }
 
@@ -108,23 +124,43 @@ export class SpeechRecognitionComponent implements OnInit {
     );
   }
 
+  private introduction() {
+    let speak = "Hallo allemaal. Mijn naam is Jan. Het is geweldig om hier in Amsterdam te mogen zijn.";
+    this.speakLocal(speak);
+  }
+
+  private selfie() {
+    let speak = "That's a nice idea. Let's take a picture together and put it on Twitter!";
+    this.speak(speak, "selfie");
+  }
+
+  private weather() {
+    this.getWeather("gouda");
+  }
+
+  private doDirections() {
+    let speak = "Don't leave the Dutch PHP Conference yet Rowdy. But just in case, this is the route.";
+    this.speak(speak, "directions");
+  }
+
+  private movie() {
+    let speak = "I know you love superhero movies. Let's watch a part of the Deadpool 2 movie trailer. Please rotate your device.";
+    this.speak(speak, "movie");
+  }
+
   private processInput() {
     let text = this.recognizedText;
     let speak: string;
     if (text.indexOf("introduce") > -1 || text.indexOf("yourself") > -1) {
-      speak = "Hallo allemaal. Mijn naam is Jan. Het is geweldig om hier in Amsterdam te mogen zijn.";
-      this.speakLocal(speak);
+      this.introduction();
     } else if (text.indexOf("share") > -1 || text.indexOf("selfie") > -1) {
-      speak = "That's a nice idea. Let's take a picture together and put it on Twitter!";
-      this.speak(speak, "selfie");
+      this.selfie();
     } else if (text.indexOf("weather") > -1 && text.indexOf("hometown") > -1) {
-      this.getWeather("gouda");
-    } else if (text.indexOf("movie") > -1) {
-      speak = "I know you love superhero movies. Let's watch a part of the Deadpool 2 movie trailer.";
-      this.speak(speak, "movie");
+      this.weather();
     } else if (text.indexOf("train") > -1) {
-      speak = "Don't leave the Dutch PHP Conference yet Rowdy. But just in case, this is the route.";
-      this.speak(speak, "directions");
+      this.doDirections();
+    } else if (text.indexOf("movie") > -1) {
+      this.movie();
     } else {
       speak = "I'm sorry Rowdy. I don't understand you.";
       this.speak(speak);
@@ -166,7 +202,7 @@ export class SpeechRecognitionComponent implements OnInit {
       pitch: 1.2,
       locale: "nl-NL",
       finishedCallback: () => {
-        let speak = "I will continue in English so you all can understand what I am saying. So call me John please.";
+        let speak = "I will continue in English so you all can understand what I'm saying. So call me John instead please.";
         this.zone.run(() => (this.spokenText = speak));
         this.speak(speak);
       }
@@ -175,7 +211,7 @@ export class SpeechRecognitionComponent implements OnInit {
   }
 
   private showMovie() {
-    dialogs.confirm("Rotate!").then(result => {
+    dialogs.confirm("Did you rotate your device?").then(result => {
       this.zone.run(() => (this.isVideoVisible = true));
       this.VideoPlayer.nativeElement.height = "100%";
       this.VideoPlayer.nativeElement.play();
