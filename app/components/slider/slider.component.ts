@@ -37,9 +37,11 @@ export class SliderComponent implements OnInit {
 
   onSliderValueChange(args) {
     let slider = <Slider>args.object;
-    this.viewStack.opacity = slider.value / 100;
+    let sliderValue = slider.value / 100;
+    this.viewStack.opacity = sliderValue;
     if (Math.round(slider.value) >= 10) {
       this.player.play();
+      this.player.volume = sliderValue;
     } else {
       if (Math.round(slider.value) == 0) {
         this.player.seekTo(0);

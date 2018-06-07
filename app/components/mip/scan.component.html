@@ -7,9 +7,7 @@
 		<StackLayout class="transparent-area" height="100%">
 			<StackLayout class="buttons">
 				<Button class="btn btn-primary" [text]="'MIP.SCAN' | translate" (tap)="scan()"></Button>
-
-				<Label [text]="'fa-android' | fonticon" class="fa" style="font-size: 100; width: 120; text-align: center; margin: 20 0 20 0;"
-				 [visibility]="canConnect ? 'visible' : 'collapsed'"></Label>
+				<img src="~/assets/images/mip.png" class="mip" [visibility]="canConnect ? 'visible' : 'collapsed'">
 				<Button class="btn btn-primary" [text]="'MIP.CONNECT' | translate" (tap)="connect()" [visibility]="canConnect ? 'visible' : 'collapsed'"></Button>
 				<Button class="btn btn-primary" [text]="'MIP.CONTROLS' | translate" (tap)="doControls()" [visibility]="isConnected ? 'visible' : 'collapsed'"></Button>
 			</StackLayout>

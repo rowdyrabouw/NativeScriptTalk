@@ -39,3 +39,10 @@
 .icon .fa {
     font-size: 120;
 }
+
+.mip {
+    margin-top: 20;
+    width: 150;
+    height: 150;
+    border-radius: 20;
+}
