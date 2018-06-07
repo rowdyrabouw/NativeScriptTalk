@@ -50,54 +50,37 @@ export class SpeechRecognitionComponent implements OnInit {
     this.text2speech = new TNSTextToSpeech();
     this.speechRecognition = new SpeechRecognition();
     this.directions = new Directions();
-    this.checkAvailability();
     camera.requestPermissions();
     this.speakRate = isIOS ? 0.5 : 1;
   }
 
-  showWeatherActionSheet() {
+  showActionSheet() {
     dialogs
       .action({
-        message: "Weather",
+        message: "Help!",
         cancelButtonText: "Cancel",
-        actions: ["Vilnius", "Gouda", "Iran", "Lupin"]
-      })
-      .then(result => {
-        console.log("Dialog result: " + result);
-        this.getWeather(result);
-      });
-  }
-
-  showBluetoothActionSheet() {
-    dialogs
-      .action({
-        message: "Bluetooth",
-        cancelButtonText: "Cancel",
-        actions: ["Connect", "Disconnect"]
+        actions: ["Introduction", "Selfie", "Weather", "Directions", "Movie"]
       })
       .then(result => {
         console.log("Dialog result: " + result);
         switch (result) {
-          case "Connect":
-            this.doConnectLightbulb();
+          case "Introduction":
+            this.introduction();
             break;
-          case "Disconnect":
-            this.doDisconnectLightbulb();
+          case "Selfie":
+            this.selfie();
+            break;
+          case "Weather":
+            this.weather();
+            break;
+          case "Directions":
+            this.doDirections();
+            break;
+          case "Movie":
+            this.movie();
             break;
         }
       });
-  }
-
-  private checkAvailability(): void {
-    this.speechRecognition
-      .available()
-      .then
-      // (available: boolean) => alert(available ? "SpeechRecognition is available" : "SpeechRecognition is NOT available!"),
-      // (err: string) => console.log(err)
-      ();
-    bluetooth.isBluetoothEnabled().then(function(enabled) {
-      // dialogs.alert(enabled ? "Bluetooth is available" : "Bluetooth is NOT available!");
-    });
   }
 
   startListening() {
@@ -141,54 +124,43 @@ export class SpeechRecognitionComponent implements OnInit {
     );
   }
 
+  private introduction() {
+    let speak = "Hallo allemaal. Mijn naam is Jan. Het is geweldig om hier in Amsterdam te mogen zijn.";
+    this.speakLocal(speak);
+  }
+
+  private selfie() {
+    let speak = "That's a nice idea. Let's take a picture together and put it on Twitter!";
+    this.speak(speak, "selfie");
+  }
+
+  private weather() {
+    this.getWeather("gouda");
+  }
+
+  private doDirections() {
+    let speak = "Don't leave the Dutch PHP Conference yet Rowdy. But just in case, this is the route.";
+    this.speak(speak, "directions");
+  }
+
+  private movie() {
+    let speak = "I know you love superhero movies. Let's watch a part of the Deadpool 2 movie trailer. Please rotate your device.";
+    this.speak(speak, "movie");
+  }
+
   private processInput() {
     let text = this.recognizedText;
     let speak: string;
     if (text.indexOf("introduce") > -1 || text.indexOf("yourself") > -1) {
-      speak = "Hallo allemaal. Mijn naam is Diana. Het is geweldig om hier in Brugge te mogen zijn.";
-      this.speakLocal(speak);
+      this.introduction();
     } else if (text.indexOf("share") > -1 || text.indexOf("selfie") > -1) {
-      speak = "That's a nice idea. Let's take a picture together and put it on Twitter!";
-      this.speak(speak, "selfie");
-      // } else if (text.indexOf("lights") > -1) {
-      //   speak = "Oh Rowdy. You were born to light up the world!";
-      //   this.speak(speak, "lightbulb");
-      // } else if (text.indexOf("weather") > -1 && text.indexOf("here") > -1) {
-      // if (!this.bluetoothConnected) {
-      //   this.connectLightbulb(false);
-      // }
-      // this.getWeather("vilnius");
+      this.selfie();
     } else if (text.indexOf("weather") > -1 && text.indexOf("hometown") > -1) {
-      // if (!this.bluetoothConnected) {
-      //   this.connectLightbulb(false);
-      // }
-      this.getWeather("gouda");
-      // } else if (text.indexOf("weather") > -1 && text.indexOf("hot") > -1) {
-      //   if (!this.bluetoothConnected) {
-      //     this.connectLightbulb(false);
-      //   }
-      //   this.getWeather("karachi");
-      // } else if (text.indexOf("weather") > -1 && text.indexOf("cold") > -1) {
-      //   if (!this.bluetoothConnected) {
-      //     this.connectLightbulb(false);
-      //   }
-      //   this.getWeather("lupin");
-    } else if (text.indexOf("song") > -1 || text.indexOf("lyric") > -1) {
-      speak =
-        "Don't call it a comeback. I've been here for years. I'm rocking my peers. Puting suckers in fear. Making the tears rain down like a monsoon. Listen to the bass go boom!";
-      this.speak(speak);
-    } else if (text.indexOf("answer") > -1) {
-      speak = "It's LL Cool J with Mama Said Knock You Out from the Deadpool 2 movie trailer.";
-      this.speak(speak, "movie");
-      // } else if (text.indexOf("show") > -1 || text.indexOf("cool") > -1) {
-      //   speak = "That's a nice idea. Let's take a picture together and put it on Twitter!";
-      //   this.speak(speak, "selfie");
-      // } else if (text.indexOf("redecorate") > -1 || text.indexOf("house") > -1) {
-      //   speak = "I've found a lovely small furniture store nearby, called eekayAh. Would you like some directions?";
-      //   this.speak(speak);
-    } else if (text.indexOf("chocolate") > -1 || text.indexOf("chocolates") > -1 || text.indexOf("year") > -1) {
-      speak = "I remember it. You bought some nice Ecuador Dark 71% chocolate drops at Choco Story. Let's get some more.";
-      this.speak(speak, "directions");
+      this.weather();
+    } else if (text.indexOf("train") > -1) {
+      this.doDirections();
+    } else if (text.indexOf("movie") > -1) {
+      this.movie();
     } else {
       speak = "I'm sorry Rowdy. I don't understand you.";
       this.speak(speak);
@@ -201,15 +173,12 @@ export class SpeechRecognitionComponent implements OnInit {
       text: aText,
       speakRate: this.speakRate,
       pitch: 1.2,
-      locale: "en-US",
+      locale: "en-GB",
       finishedCallback: () => {
         if (aAction) {
           switch (aAction) {
             case "selfie":
               this.shareSelfie();
-              break;
-            case "lightbulb":
-              this.connectLightbulb(true);
               break;
             case "movie":
               this.isVideoVisible = true;
@@ -231,14 +200,18 @@ export class SpeechRecognitionComponent implements OnInit {
       text: aText,
       speakRate: this.speakRate,
       pitch: 1.2,
-      locale: "nl-BE",
-      finishedCallback: () => {}
+      locale: "nl-NL",
+      finishedCallback: () => {
+        let speak = "I will continue in English so you all can understand what I'm saying. So call me John instead please.";
+        this.zone.run(() => (this.spokenText = speak));
+        this.speak(speak);
+      }
     };
     this.text2speech.speak(speakOptions);
   }
 
   private showMovie() {
-    dialogs.confirm("Rotate!").then(result => {
+    dialogs.confirm("Did you rotate your device?").then(result => {
       this.zone.run(() => (this.isVideoVisible = true));
       this.VideoPlayer.nativeElement.height = "100%";
       this.VideoPlayer.nativeElement.play();
@@ -265,11 +238,11 @@ export class SpeechRecognitionComponent implements OnInit {
     this.directions
       .navigate({
         from: {
-          address: "Vaartdijkstraat 5, Brugge"
+          address: "RAI Amsterdam"
         },
         to: [
           {
-            address: "Wijnzakstraat 2, Brugge"
+            address: "Station Gouda"
           }
         ]
       })
@@ -283,135 +256,11 @@ export class SpeechRecognitionComponent implements OnInit {
       );
   }
 
-  private connectLightbulb(showColors: boolean) {
-    bluetooth.isBluetoothEnabled().then(function(enabled) {
-      console.log("Enabled? " + enabled);
-    });
-
-    bluetooth
-      .startScanning({
-        serviceUUIDs: [],
-        seconds: 4,
-        skipPermissionCheck: true,
-        onDiscovered: peripheral => {
-          console.log("Periperhal found with UUID: " + peripheral.UUID);
-          if (peripheral.UUID == this.uuid) {
-            bluetooth.stopScanning().then(function() {
-              console.log("scanning stopped");
-            });
-            bluetooth.connect({
-              // UUID: this.uuid,
-              UUID: peripheral.UUID,
-              onConnected: peripheral => {
-                this.bluetoothConnected = true;
-                console.log("Periperhal connected with name: " + peripheral.name);
-                // console.log("Periperhal connected with UUID: " + peripheral.UUID);
-                // the peripheral object now has a list of available services:
-                // peripheral.services.forEach(function(service) {
-                //   console.log("service found: " + JSON.stringify(service));
-                // });
-                this.clearLightbulb();
-                if (showColors) {
-                  this.randomColors();
-                }
-              },
-              onDisconnected: peripheral => {
-                this.bluetoothConnected = false;
-                console.log("Periperhal disconnected with UUID: " + peripheral.UUID);
-              }
-            });
-          }
-        }
-      })
-      .then(
-        () => {
-          console.log("scanning complete");
-        },
-        function(err) {
-          console.log("error while scanning: " + err);
-        }
-      );
-  }
-
-  private clearLightbulb() {
-    this.setColor(0, 0, 0);
-  }
-
-  private disConnectLightbulb() {
-    bluetooth
-      .disconnect({
-        UUID: this.uuid
-      })
-      .then(
-        function() {
-          console.log("disconnected successfully");
-        },
-        function(err) {
-          // in this case you're probably best off treating this as a disconnected peripheral though
-          console.log("disconnection error: " + err);
-        }
-      );
-  }
-
-  private randomColors() {
-    let i = 0;
-    let id = setInterval(() => {
-      if (i < 10) {
-        this.randomColor();
-      }
-      i++;
-      if (i > 10) {
-        clearInterval(id);
-        this.clearLightbulb();
-      }
-    }, 1000);
-  }
-
-  private randomColor() {
-    let r = Math.floor(Math.random() * 256);
-    let g = Math.floor(Math.random() * 256);
-    let b = Math.floor(Math.random() * 256);
-    this.setColor(r, g, b);
-  }
-
-  private setColor(r, g, b) {
-    let value = new Uint8Array([0x00, r, g, b]);
-    this.write(value);
-  }
-
-  private write(value) {
-    bluetooth
-      .writeWithoutResponse({
-        peripheralUUID: this.uuid,
-        serviceUUID: this.service,
-        characteristicUUID: this.characteristic,
-        value: value
-      })
-      .then(
-        function(result) {
-          // console.log("value written");
-        },
-        function(err) {
-          console.log("write error: " + err);
-        }
-      );
-  }
-
-  doConnectLightbulb() {
-    this.connectLightbulb(false);
-  }
-
-  doDisconnectLightbulb() {
-    this.clearLightbulb();
-    this.disConnectLightbulb();
-  }
-
   getWeather(aSearch: string) {
     this.weatherService.getWeather(aSearch.toLowerCase()).then(res => {
       let weather: any = res;
       console.log(JSON.stringify(weather));
-      let colors = weather.color.split(",");
-      this.setColor(colors[0], colors[1], colors[2]);
+      // let colors = weather.color.split(",");
       let text = `The current weather in ${weather.city} (${weather.country}) is ${weather.summary.toLowerCase()}, ${
         weather.temperature
       } degrees Celcius. `;
