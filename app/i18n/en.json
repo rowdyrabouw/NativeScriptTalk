@@ -1,19 +1,19 @@
 {
   "HOME": {
-    "TITLE": "Hello Dutch PHP Conference!",
+    "TITLE": "Hello OdessaJS!",
     "TEXT": "It's great to be here and introduce NativeScript to you.",
     "SLIDER": "Slider",
     "ENGLISH": "English",
-    "FOREIGN": "Dutch",
+    "FOREIGN": "Ukrainian",
     "MIP": "WowWee MiP",
     "MACHINE_LEARNING": "Machine Learning",
-    "SPEECH_RECOGNITION": "Speech Recognition"
+    "SPEECH_RECOGNITION": "Speech recognition!"
   },
   "MIP": {
     "TITLE": "WowWee MiP!",
-    "SCAN": "Scan",
-    "CONNECT": "Connect",
-    "CONTROLS": "Controls"
+    "SCAN": "Сканування",
+    "CONNECT": "Підключіться",
+    "CONTROLS": "Елементи керування"
   },
   "ML": {
     "TITLE": "Machine Learning!"

@@ -9,7 +9,7 @@ import { TranslateService } from "@ngx-translate/core";
 
 @Injectable()
 export class LanguageService {
-  private languages: Array<string> = ["en", "nl"];
+  private languages: Array<string> = ["en", "uk"];
   private language: string = "en";
 
   translateService: TranslateService;
