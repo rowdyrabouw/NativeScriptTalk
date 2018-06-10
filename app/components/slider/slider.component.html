@@ -1,13 +1,12 @@
-<ActionBar class="action-bar">
+<ActionBar>
     <NavigationButton visibility="collapsed"></NavigationButton>
 </ActionBar>
-
 <StackLayout (tap)="navigateHome()">
     <AbsoluteLayout>
-        <StackLayout #background height="100%" width="100%" class="full captain" top="0" left="0" style="opacity: 0">
+        <StackLayout #background class="captain" top="0" left="0">
         </StackLayout>
-        <FlexboxLayout justifyContent="center" alignItems="center" height="100%" width="100%" top="0" left="0">
-            <Slider width="80%" slider-icon (valueChange)="onSliderValueChange($event)" minValue="0" maxValue="100" style="background-color:#BC1A0F"></Slider>
+        <FlexboxLayout class="flexcontainer" top="0" left="0">
+            <Slider slider-icon (valueChange)="onSliderValueChange($event)"></Slider>
         </FlexboxLayout>
     </AbsoluteLayout>
 </StackLayout>
