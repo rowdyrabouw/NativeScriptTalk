@@ -155,7 +155,7 @@ export class SpeechRecognitionComponent implements OnInit {
     let text = this.recognizedText;
     let speak: string;
     if (text.indexOf("introduce") > -1 || text.indexOf("yourself") > -1) {
-      this.doIntroduction;
+      this.doIntroduction();
     } else if (text.indexOf("share") > -1 || text.indexOf("selfie") > -1) {
       this.doSelfie();
     } else if (text.indexOf("weather") > -1 && text.indexOf("hometown") > -1) {
