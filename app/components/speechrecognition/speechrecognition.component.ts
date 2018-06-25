@@ -1,21 +1,19 @@
-import { Component, OnInit, NgZone, ViewChild, ElementRef } from "@angular/core";
-import * as dialogs from "ui/dialogs";
-
-import { SpeechRecognition, SpeechRecognitionTranscription } from "nativescript-speech-recognition";
-import { TNSTextToSpeech, SpeakOptions } from "nativescript-texttospeech";
-import * as camera from "nativescript-camera";
-import * as SocialShare from "nativescript-social-share";
-import { ImageSource } from "tns-core-modules/image-source";
-import { Directions } from "nativescript-directions";
-
-import * as bluetooth from "nativescript-bluetooth";
-
+import { Component, ElementRef, NgZone, OnInit, ViewChild } from "@angular/core";
 import { registerElement } from "nativescript-angular/element-registry";
-registerElement("VideoPlayer", () => require("nativescript-videoplayer").Video);
-// https://docs.nativescript.org/angular/plugins/angular-third-party.html#simple-elements
-
-import { WeatherService } from "../../services/weather.service";
+import * as camera from "nativescript-camera";
+import { Directions } from "nativescript-directions";
+import * as SocialShare from "nativescript-social-share";
+import { SpeechRecognition, SpeechRecognitionTranscription } from "nativescript-speech-recognition";
+import { SpeakOptions, TNSTextToSpeech } from "nativescript-texttospeech";
+import { ImageSource } from "tns-core-modules/image-source";
 import { isIOS } from "tns-core-modules/ui/frame/frame";
+import * as dialogs from "ui/dialogs";
+// https://docs.nativescript.org/angular/plugins/angular-third-party.html#simple-elements
+import { WeatherService } from "../../services/weather.service";
+
+
+
+registerElement("VideoPlayer", () => require("nativescript-videoplayer").Video);
 
 @Component({
   moduleId: module.id,
@@ -47,7 +45,7 @@ export class SpeechRecognitionComponent implements OnInit {
   private selfie = "That's a nice idea. Let's take a picture together and put it on Twitter!";
   private weather = "gouda";
   private direction = "You should definitely visit the Potemkin Stairs. I will show you the route.";
-  private movie = "I know you love superhero movies. Let's watch a part of the Deadpool 2 movie trailer together. Please rotate your device.";
+  private movie = "I know you love superhero movies. Let's watch a part of the Ant-Man and the Wasp movie trailer together. Please rotate your device.";
   private locale = "en-US";
   private foreignLocale = "uk-UA";
 
