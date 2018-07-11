@@ -245,7 +245,11 @@ export class SpeechRecognitionComponent implements OnInit {
           {
             address: "Potemkin Stairs, Odesa, Ukraine"
           }
-        ]
+        ],
+        ios: {
+          preferGoogleMaps: true,
+          allowGoogleMapsWeb: true 
+        }
       })
       .then(
         () => {

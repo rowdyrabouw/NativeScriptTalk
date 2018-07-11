@@ -11,9 +11,9 @@
   },
   "MIP": {
     "TITLE": "WowWee MiP!",
-    "SCAN": "Сканування",
-    "CONNECT": "Підключіться",
-    "CONTROLS": "Елементи керування"
+    "SCAN": "Scan",
+    "CONNECT": "Connect",
+    "CONTROLS": "Controls"
   },
   "ML": {
     "TITLE": "Machine Learning!"
