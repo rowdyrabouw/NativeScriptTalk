@@ -13,8 +13,8 @@ import { TNSPlayer } from "nativescript-audio";
   styleUrls: ["slider.component.css"]
 })
 export class SliderComponent implements OnInit {
-  @ViewChild("background") _background: ElementRef;
-  viewStack: StackLayout;
+  @ViewChild("background") background: ElementRef;
+  private viewStack: StackLayout;
   private player: TNSPlayer;
 
   constructor(private page: Page, private routerExtensions: RouterExtensions) {}
@@ -27,7 +27,7 @@ export class SliderComponent implements OnInit {
 
   ngOnInit() {
     this.page.actionBarHidden = true;
-    this.viewStack = this._background.nativeElement;
+    this.viewStack = this.background.nativeElement;
     this.player = new TNSPlayer();
     this.player.initFromFile({
       audioFile: "~/assets/audio/captain.mp3",
@@ -39,14 +39,12 @@ export class SliderComponent implements OnInit {
     let slider = <Slider>args.object;
     let sliderValue = slider.value / 100;
     this.viewStack.opacity = sliderValue;
-    if (Math.round(slider.value) >= 10) {
+    if (Math.round(slider.value) > 0) {
       this.player.play();
       this.player.volume = sliderValue;
     } else {
-      if (Math.round(slider.value) == 0) {
-        this.player.seekTo(0);
-        this.player.pause();
-      }
+      this.player.seekTo(0);
+      this.player.pause();
     }
   }
 }

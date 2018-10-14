@@ -10,7 +10,7 @@
                 <Label [text]="recognizedText" textWrap="true" [visibility]="isRecording ? 'visible' : 'collapsed'"></Label>
                 <Label [text]="spokenText" textWrap="true" [visibility]="!isRecording ? 'visible' : 'collapsed'"></Label>
                 <Image #selfie [visibility]="showImage ? 'visible' : 'collapsed'"></Image>
-                <VideoPlayer #videoplayer src="~/assets/video/deadpool.mp4" autoplay="false" controls="true" [visibility]="isVideoVisible ? 'visible' : 'collapsed'"></VideoPlayer>
+                <VideoPlayer #videoplayer src="~/assets/video/antman.mp4" autoplay="false" controls="true" [visibility]="isVideoVisible ? 'visible' : 'collapsed'"></VideoPlayer>
             </StackLayout>
             <FlexboxLayout class="buttons" justifyContent="space-around" dock="bottom" height="60">
                 <!-- <Label [text]="'fa-cloud' | fonticon" (tap)="showWeatherActionSheet()" class="fa"></Label> -->

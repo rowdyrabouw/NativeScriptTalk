@@ -1,9 +1,25 @@
-.full {
+.captain {
+  background-image: url("~/assets/images/captain-america.jpg");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
 }
 
-.captain {
-  background-image: url("~/assets/images/captain-america.jpg");
+.flexcontainer {
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+Slider {
+  width: 80%;
+  background-color: #BC1A0F;
+}
+
+ActionBar {
+  background-color: #FFFFFF;
 }

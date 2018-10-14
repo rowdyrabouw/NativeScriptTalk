@@ -1,21 +1,19 @@
-import { Component, OnInit, NgZone, ViewChild, ElementRef } from "@angular/core";
-import * as dialogs from "ui/dialogs";
-
-import { SpeechRecognition, SpeechRecognitionTranscription } from "nativescript-speech-recognition";
-import { TNSTextToSpeech, SpeakOptions } from "nativescript-texttospeech";
-import * as camera from "nativescript-camera";
-import * as SocialShare from "nativescript-social-share";
-import { ImageSource } from "tns-core-modules/image-source";
-import { Directions } from "nativescript-directions";
-
-import * as bluetooth from "nativescript-bluetooth";
-
+import { Component, ElementRef, NgZone, OnInit, ViewChild } from "@angular/core";
 import { registerElement } from "nativescript-angular/element-registry";
-registerElement("VideoPlayer", () => require("nativescript-videoplayer").Video);
-// https://docs.nativescript.org/angular/plugins/angular-third-party.html#simple-elements
-
-import { WeatherService } from "../../services/weather.service";
+import * as camera from "nativescript-camera";
+import { Directions } from "nativescript-directions";
+import * as SocialShare from "nativescript-social-share";
+import { SpeechRecognition, SpeechRecognitionTranscription } from "nativescript-speech-recognition";
+import { SpeakOptions, TNSTextToSpeech } from "nativescript-texttospeech";
+import { ImageSource } from "tns-core-modules/image-source";
 import { isIOS } from "tns-core-modules/ui/frame/frame";
+import * as dialogs from "ui/dialogs";
+// https://docs.nativescript.org/angular/plugins/angular-third-party.html#simple-elements
+import { WeatherService } from "../../services/weather.service";
+
+
+
+registerElement("VideoPlayer", () => require("nativescript-videoplayer").Video);
 
 @Component({
   moduleId: module.id,
@@ -24,8 +22,6 @@ import { isIOS } from "tns-core-modules/ui/frame/frame";
   styleUrls: ["speechrecognition.component.css"]
 })
 export class SpeechRecognitionComponent implements OnInit {
-  // lightbulb
-  // private uuid = "CA9F644C-1750-4572-8833-1D137A9B9A05";
   private uuid = "C3371AAF-E6A5-4BB9-BA2E-6F45E0ACFA7A";
   private service = "ff0f";
   private characteristic = "fffc";
@@ -43,6 +39,15 @@ export class SpeechRecognitionComponent implements OnInit {
   isRecording: boolean = false;
   showImage: boolean = false;
   bluetoothConnected: boolean = false;
+
+  private introduction = "Привіт усім! Мене звуть Софія. Це здорово бути тут у прекрасній Одесі.";
+  private introEnglish = "I hope my Ukrainian was good. Otherwise blaim Google translate. I will continue in English to be sure.";
+  private selfie = "That's a nice idea. Let's take a picture together and put it on Twitter!";
+  private weather = "gouda";
+  private direction = "You should definitely visit the Potemkin Stairs. I will show you the route.";
+  private movie = "I know you love superhero movies. Let's watch a part of the Ant-Man and the Wasp movie trailer together. Please rotate your device.";
+  private locale = "en-US";
+  private foreignLocale = "uk-UA";
 
   constructor(private weatherService: WeatherService, private zone: NgZone) {}
 
@@ -65,19 +70,19 @@ export class SpeechRecognitionComponent implements OnInit {
         console.log("Dialog result: " + result);
         switch (result) {
           case "Introduction":
-            this.introduction();
+            this.doIntroduction();
             break;
           case "Selfie":
-            this.selfie();
+            this.doSelfie();
             break;
           case "Weather":
-            this.weather();
+            this.doWeather();
             break;
           case "Directions":
             this.doDirections();
             break;
           case "Movie":
-            this.movie();
+            this.doMovie();
             break;
         }
       });
@@ -124,43 +129,39 @@ export class SpeechRecognitionComponent implements OnInit {
     );
   }
 
-  private introduction() {
-    let speak = "Hallo allemaal. Mijn naam is Jan. Het is geweldig om hier in Amsterdam te mogen zijn.";
-    this.speakLocal(speak);
+  private doIntroduction() {
+    this.speakLocal(this.introduction);
   }
 
-  private selfie() {
-    let speak = "That's a nice idea. Let's take a picture together and put it on Twitter!";
-    this.speak(speak, "selfie");
+  private doSelfie() {
+    this.speak(this.selfie, "selfie");
   }
 
-  private weather() {
-    this.getWeather("gouda");
+  private doWeather() {
+    this.getWeather(this.weather);
   }
 
   private doDirections() {
-    let speak = "Don't leave the Dutch PHP Conference yet Rowdy. But just in case, this is the route.";
-    this.speak(speak, "directions");
+    this.speak(this.direction, "directions");
   }
 
-  private movie() {
-    let speak = "I know you love superhero movies. Let's watch a part of the Deadpool 2 movie trailer. Please rotate your device.";
-    this.speak(speak, "movie");
+  private doMovie() {
+    this.speak(this.movie, "movie");
   }
 
   private processInput() {
     let text = this.recognizedText;
     let speak: string;
     if (text.indexOf("introduce") > -1 || text.indexOf("yourself") > -1) {
-      this.introduction();
+      this.doIntroduction();
     } else if (text.indexOf("share") > -1 || text.indexOf("selfie") > -1) {
-      this.selfie();
+      this.doSelfie();
     } else if (text.indexOf("weather") > -1 && text.indexOf("hometown") > -1) {
-      this.weather();
-    } else if (text.indexOf("train") > -1) {
+      this.doWeather();
+    } else if (text.indexOf("tourist") > -1 || text.indexOf("sightseeing") > -1) {
       this.doDirections();
     } else if (text.indexOf("movie") > -1) {
-      this.movie();
+      this.doMovie();
     } else {
       speak = "I'm sorry Rowdy. I don't understand you.";
       this.speak(speak);
@@ -173,7 +174,7 @@ export class SpeechRecognitionComponent implements OnInit {
       text: aText,
       speakRate: this.speakRate,
       pitch: 1.2,
-      locale: "en-GB",
+      locale: this.locale,
       finishedCallback: () => {
         if (aAction) {
           switch (aAction) {
@@ -200,9 +201,9 @@ export class SpeechRecognitionComponent implements OnInit {
       text: aText,
       speakRate: this.speakRate,
       pitch: 1.2,
-      locale: "nl-NL",
+      locale: this.foreignLocale,
       finishedCallback: () => {
-        let speak = "I will continue in English so you all can understand what I'm saying. So call me John instead please.";
+        let speak = this.introEnglish;
         this.zone.run(() => (this.spokenText = speak));
         this.speak(speak);
       }
@@ -238,13 +239,17 @@ export class SpeechRecognitionComponent implements OnInit {
     this.directions
       .navigate({
         from: {
-          address: "RAI Amsterdam"
+          address: "OK Odessa, Haharinske Plateau, 5, Odesa, Ukraine"
         },
         to: [
           {
-            address: "Station Gouda"
+            address: "Potemkin Stairs, Odesa, Ukraine"
           }
-        ]
+        ],
+        ios: {
+          preferGoogleMaps: true,
+          allowGoogleMapsWeb: true 
+        }
       })
       .then(
         () => {

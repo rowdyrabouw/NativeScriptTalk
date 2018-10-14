@@ -1,0 +1,27 @@
+{
+  "HOME": {
+    "TITLE": "Привіт OdessaJS!",
+    "TEXT": "Це здорово бути тут і ввести NativeScript для вас.",
+    "SLIDER": "Слайдер",
+    "ENGLISH": "Англійська",
+    "FOREIGN": "Українська",
+    "MIP": "WowWee MiP",
+    "MACHINE_LEARNING": "Machine Learning",
+    "SPEECH_RECOGNITION": "Розпізнавання мови"
+  },
+  "MIP": {
+    "TITLE": "WowWee MiP!",
+    "SCAN": "Сканування",
+    "CONNECT": "Підключіться",
+    "CONTROLS": "Елементи керування"
+  },
+  "ML": {
+    "TITLE": "Machine Learning!"
+  },
+  "SPEECH": {
+    "TITLE": "Розпізнавання мови!"
+  },
+  "NAVIGATION": {
+    "BACK": "Назад"
+  }
+}

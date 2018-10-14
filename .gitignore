@@ -4,6 +4,7 @@ _docs
 **/*.js
 *.js.map
 .nsbuildinfo
+package-lock.json
 *.gradle
 hooks
 node_modules
