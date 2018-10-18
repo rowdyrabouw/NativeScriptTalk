@@ -1,15 +1,15 @@
 // Platform
-import * as Platform from "platform";
-
 // Angular
 import { Injectable } from "@angular/core";
-
 // Plugins
 import { TranslateService } from "@ngx-translate/core";
+import * as Platform from "platform";
+
+
 
 @Injectable()
 export class LanguageService {
-  private languages: Array<string> = ["en", "uk"];
+  private languages: Array<string> = ["en", "de"];
   private language: string = "en";
 
   translateService: TranslateService;

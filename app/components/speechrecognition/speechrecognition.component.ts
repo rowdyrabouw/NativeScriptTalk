@@ -11,8 +11,6 @@ import * as dialogs from "ui/dialogs";
 // https://docs.nativescript.org/angular/plugins/angular-third-party.html#simple-elements
 import { WeatherService } from "../../services/weather.service";
 
-
-
 registerElement("VideoPlayer", () => require("nativescript-videoplayer").Video);
 
 @Component({
@@ -33,21 +31,23 @@ export class SpeechRecognitionComponent implements OnInit {
   recognizedText: string;
   spokenText: string;
   image: string;
-  @ViewChild("videoplayer") VideoPlayer: ElementRef;
-  @ViewChild("selfie") Selfie: ElementRef;
+  @ViewChild("videoplayer")
+  VideoPlayer: ElementRef;
+  @ViewChild("selfie")
+  Selfie: ElementRef;
   isVideoVisible: boolean = false;
   isRecording: boolean = false;
   showImage: boolean = false;
   bluetoothConnected: boolean = false;
 
-  private introduction = "Привіт усім! Мене звуть Софія. Це здорово бути тут у прекрасній Одесі.";
-  private introEnglish = "I hope my Ukrainian was good. Otherwise blaim Google translate. I will continue in English to be sure.";
+  private introduction = "Hallo allen! Mein Name ist Anne. Es ist toll hier in München zu sein.";
+  private introEnglish = "I hope my German was good. Otherwise blaim Google translate. I will continue in English to be sure.";
   private selfie = "That's a nice idea. Let's take a picture together and put it on Twitter!";
   private weather = "gouda";
-  private direction = "You should definitely visit the Potemkin Stairs. I will show you the route.";
-  private movie = "I know you love superhero movies. Let's watch a part of the Ant-Man and the Wasp movie trailer together. Please rotate your device.";
+  private direction = "You should definitely visit the Marienplatz. I will show you the route.";
+  private movie = "I know you love superhero movies. Let's watch a part of the Venom trailer together.";
   private locale = "en-US";
-  private foreignLocale = "uk-UA";
+  private foreignLocale = "de-DE";
 
   constructor(private weatherService: WeatherService, private zone: NgZone) {}
 
@@ -130,6 +130,12 @@ export class SpeechRecognitionComponent implements OnInit {
   }
 
   private doIntroduction() {
+    // setTimeout(() => {
+    //   this.spokenText = "Please introduce yourself.";
+    // }, 1000);
+    // setTimeout(() => {
+    //   this.speakLocal(this.introduction);
+    // }, 3000);
     this.speakLocal(this.introduction);
   }
 
@@ -138,14 +144,35 @@ export class SpeechRecognitionComponent implements OnInit {
   }
 
   private doWeather() {
+    // setTimeout(() => {
+    //   this.spokenText = "How is the weather in my hometown?";
+    // }, 1000);
+    // setTimeout(() => {
+    //   this.getWeather(this.weather);
+    // }, 3000);
     this.getWeather(this.weather);
   }
 
   private doDirections() {
+    // setTimeout(() => {
+    //   this.spokenText = "I like to do some sightseeing like a tourist";
+    // }, 1000);
+    // setTimeout(() => {
+    //   this.speak(this.direction, "directions");
+    // }, 3000);
     this.speak(this.direction, "directions");
   }
 
   private doMovie() {
+    // setTimeout(() => {
+    //   this.spokenText = "";
+    // }, 1000);
+    // setTimeout(() => {
+    //   this.spokenText = "Can we watch a movie trailer?";
+    // }, 2000);
+    // setTimeout(() => {
+    //   this.speak(this.movie, "movie");
+    // }, 4000);
     this.speak(this.movie, "movie");
   }
 
@@ -212,11 +239,11 @@ export class SpeechRecognitionComponent implements OnInit {
   }
 
   private showMovie() {
-    dialogs.confirm("Did you rotate your device?").then(result => {
-      this.zone.run(() => (this.isVideoVisible = true));
-      this.VideoPlayer.nativeElement.height = "100%";
-      this.VideoPlayer.nativeElement.play();
-    });
+    // dialogs.confirm("Did you rotate your device?").then(result => {
+    this.zone.run(() => (this.isVideoVisible = true));
+    this.VideoPlayer.nativeElement.height = "100%";
+    this.VideoPlayer.nativeElement.play();
+    // });
   }
 
   private shareSelfie() {
@@ -239,16 +266,16 @@ export class SpeechRecognitionComponent implements OnInit {
     this.directions
       .navigate({
         from: {
-          address: "OK Odessa, Haharinske Plateau, 5, Odesa, Ukraine"
+          address: "Hochstraße 11, 81669 München, Germany"
         },
         to: [
           {
-            address: "Potemkin Stairs, Odesa, Ukraine"
+            address: "Marienplatz 1, 80331 München, Germany"
           }
         ],
         ios: {
           preferGoogleMaps: true,
-          allowGoogleMapsWeb: true 
+          allowGoogleMapsWeb: true
         }
       })
       .then(
