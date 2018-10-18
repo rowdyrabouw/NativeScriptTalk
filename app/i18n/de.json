@@ -1,0 +1,27 @@
+{
+  "HOME": {
+    "TITLE": "Hallo WDC München!",
+    "TEXT": "Es ist großartig, hier zu sein und NativeScript für dich einzuführen.",
+    "SLIDER": "Schieberegler",
+    "ENGLISH": "Englisch",
+    "FOREIGN": "Deutsch",
+    "MIP": "WowWee MiP",
+    "MACHINE_LEARNING": "Maschinelles lernen",
+    "SPEECH_RECOGNITION": "Spracherkennung!"
+  },
+  "MIP": {
+    "TITLE": "WowWee MiP!",
+    "SCAN": "Scan",
+    "CONNECT": "Verbinden",
+    "CONTROLS": "Kontrollen"
+  },
+  "ML": {
+    "TITLE": "Maschinelles lernen!"
+  },
+  "SPEECH": {
+    "TITLE": "Spracherkennung!"
+  },
+  "NAVIGATION": {
+    "BACK": "Zurück"
+  }
+}
