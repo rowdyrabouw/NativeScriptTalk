@@ -1,25 +1,23 @@
-<ActionBar class="action-bar" flat="true" (tap)="testAudio()" [title]="'HOME.TITLE' | translate">
-</ActionBar>
+<ActionBar class="action-bar" flat="true" (tap)="testAudio()" [title]="'HOME.TITLE' | translate"> </ActionBar>
 
 <StackLayout class="main-content">
-    <Gradient height="100%" direction="to bottom" colors="#EA7609, #7E3309" class="gradient">
-        <StackLayout class="transparent-area" height="100%">
-            <StackLayout class="text">
-                <Label [text]="'HOME.TEXT' | translate" textWrap="true"></Label>
-            </StackLayout>
+  <Gradient height="100%" direction="to bottom" colors="#EA7609, #7E3309" class="gradient">
+    <StackLayout class="transparent-area" height="100%">
+      <StackLayout class="text">
+        <Label [text]="'HOME.TEXT' | translate" textWrap="true"></Label>
+      </StackLayout>
 
-            <StackLayout class="buttons">
-                <Button class="btn btn-primary" [text]="'HOME.SLIDER' | translate" (tap)="navigateToSlider()"></Button>
+      <StackLayout class="buttons">
+        <Button class="btn btn-primary" [text]="'HOME.SLIDER' | translate" (tap)="navigateToSlider()"></Button>
 
-                <Button class="btn btn-primary" [text]="'HOME.ENGLISH' | translate" (tap)="changeLanguage('en')"></Button>
-                <Button class="btn btn-primary" [text]="'HOME.FOREIGN' | translate" (tap)="changeLanguage('de')"></Button>
+        <Button class="btn btn-primary" [text]="'HOME.ENGLISH' | translate" (tap)="changeLanguage('en')"></Button>
+        <Button class="btn btn-primary" [text]="'HOME.FOREIGN' | translate" (tap)="changeLanguage('de')"></Button>
 
-                <Button class="btn btn-primary " [text]="'HOME.MIP' | translate" (tap)="navigateToMip()"></Button>
+        <Button class="btn btn-primary " [text]="'HOME.MIP' | translate" (tap)="navigateToMip()"></Button>
 
-                <Button class="btn btn-primary" [text]="'HOME.SPEECH_RECOGNITION' | translate" (tap)="navigateToSpeechRecognition()"></Button>
-                <!-- <Button class="btn btn-primary " [text]="'HOME.MACHINE_LEARNING' | translate" (tap)="navigateToMachineLearning()"></Button> -->
-
-            </StackLayout>
-        </StackLayout>
-    </Gradient>
+        <Button class="btn btn-primary" [text]="'HOME.SPEECH_RECOGNITION' | translate" (tap)="navigateToSpeechRecognition()"></Button>
+        <Button class="btn btn-primary " [text]="'HOME.MACHINE_LEARNING' | translate" (tap)="navigateToMachineLearning()"></Button>
+      </StackLayout>
+    </StackLayout>
+  </Gradient>
 </StackLayout>
